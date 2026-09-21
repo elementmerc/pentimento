@@ -8,5 +8,5 @@ harness. This repository is the corpus: its documentation, its release
 metadata, and the record of how it was made.
 
 The images themselves are not here. They are published to the Internet
-Archive, HuggingFace, Kaggle and Academic Torrents, because 45 GB does not
+Archive, HuggingFace, Kaggle and Academic Torrents, because 48 GB does not
 belong in git.

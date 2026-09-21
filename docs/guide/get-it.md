@@ -1,6 +1,6 @@
 # Get it
 
-The Core tier is 10,000 covers and 344,348 stego pairs, about 45 GB in total.
+The Core tier is 10,000 covers and 344,348 stego pairs, about 48 GB in total.
 Covers and arms are packaged separately, so you can take one without the other.
 
 ## Where it is
@@ -19,15 +19,15 @@ pixel does not mean downloading MiPOD to get it.
 
 | Part | Size | What it is |
 |---|---|---|
-| Covers | 3.1 GB | The 10,000 clean photographs |
+| Covers | 3.3 GB | The 10,000 clean photographs |
 | One stego arm | ~1.3 GB | 10,000 images from one tool at one payload |
-| Clean arms | ~3.3 GB | The other half of every pair |
-| Everything | ~45 GB | 39 arms |
+| Clean arms | 4.1 GB | The other half of every pair, all four of them |
+| Everything | 48 GB | The covers plus all 39 arms |
 
 ## One arm, start to finish
 
-This is the whole thing: fetch an arm and its clean half, check them, read a
-sample. About 2.6 GB.
+This is the whole thing: fetch one shard of an arm and the matching shard of
+its clean half, check them, read a sample. About 130 MB.
 
 ```bash
 BASE=https://archive.org/download/pentimento-core-v1
@@ -48,11 +48,19 @@ python3 load_pentimento.py pentimento-core-wow-0200-00000.tar
 
 ```
 first sample: 000000
-  bytes      337,041
-  licence    CC BY 4.0
-  cover      00000.png
+  bytes      94,608
+  licence    {'artist': 'Charlotte Jackson', 'attribution': '"File:Downtown Hagerstown on Franklin Street.jpg", by Charlotte Jackson, CC BY 4.0, via Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Downtown_Hagerstown_on_Franklin_Street.jpg', 'credit': 'Own work', 'descriptionurl': 'https://commons.wikimedia.org/wiki/File:Downtown_Hagerstown_on_Franklin_Street.jpg', 'licence': 'CC BY 4.0', 'title': 'File:Downtown Hagerstown on Franklin Street.jpg', 'usage_terms': 'Creative Commons Attribution 4.0'}
+  cover      09710.png
 500 samples in pentimento-core-wow-0200-00000.tar
 ```
+
+Two things in that output surprise people. The licence prints as a whole record
+rather than a name, because a stego sample carries its cover's full credit line
+and not only the licence label. And sample `000000` is not cover `00000.png`:
+sample keys count the arm from zero in the order it was packed, while cover
+filenames were fixed when the covers were fetched. They're two separate
+numberings and they only agree by accident. The `cover` line is the one to
+read.
 
 Then see [Loading and splitting](using-it) before you train on it, because a
 random split will quietly flatter your results.
@@ -81,8 +89,8 @@ Core without the two overlapping in a way that flatters your results.
 | Tier | Covers | Covers only | With every arm |
 |---|---|---|---|
 | Nano | 200 | 66 MB | 1.0 GB |
-| Lite | 1,000 | 327 MB | 4.7 GB |
-| **Core** | **10,000** | **3.1 GB** | **45 GB** |
+| Lite | 1,000 | 327 MB | 4.8 GB |
+| **Core** | **10,000** | **3.3 GB** | **48 GB** |
 
 The nesting is exact rather than approximate: Lite's cover shard is the same
 file, byte for byte, as Core's first cover shard.
