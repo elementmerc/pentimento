@@ -21,17 +21,24 @@ on that instead.
 
 ## The credit line is already written
 
-Every cover record carries an `attribution` field with a ready-made line:
+Every cover record carries an `attribution` field with a ready-made line, in
+the order Creative Commons itself recommends: title, creator, licence with its
+URL, source, and a statement of what was changed. Every cover in this corpus
+is a crop, so that's part of the line, not an afterthought:
 
 ```
 "File:Downtown Hagerstown on Franklin Street.jpg", by Charlotte Jackson,
-CC BY 4.0, via Wikimedia Commons, https://commons.wikimedia.org/wiki/...
+CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), via Wikimedia
+Commons, https://commons.wikimedia.org/wiki/..., cropped
 ```
 
-Stego images are derivative works and inherit their cover's terms, so **every
-stego sample carries its cover's licence too**, under `cover_licence`. A reader
-who downloads one arm and never opens the cover tier still has everything the
-licence asks of them.
+A stego image's own record carries a longer version of the same line, ending
+in what was done beyond the crop ("cropped, then modified to carry a hidden
+payload" for the stego half, "cropped, and re-encoded as the control half of a
+pair" for its clean twin), because a reader holding only that file has no
+other way to learn what happened to it. Stego images also inherit their
+cover's licence under `cover_licence`, so a reader who downloads one arm and
+never opens the cover tier still has everything the licence asks of them.
 
 ## Citing it
 
