@@ -1,6 +1,6 @@
-// Stegobench documentation theme.
+// Pentimento documentation theme.
 //
-// VitePress ships an indigo/purple brand colour. The tool's blue is #0071E3,
+// VitePress ships an indigo/purple brand colour. The project's blue is #0071E3,
 // and a site whose accent does not match its own mark reads as a template
 // somebody forgot to fill in.
 import DefaultTheme from 'vitepress/theme'

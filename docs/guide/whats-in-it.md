@@ -17,9 +17,46 @@
 | End-user tools | steghide, outguess | 5%, 20%, 50% of capacity | JPEG |
 | Control | Appended data after the end marker | n/a | JPEG |
 
-The appended-data arm is the sanity check. Anything claiming to detect
-steganography should catch it at close to 100%; a tool that misses it is not
-reading the file.
+### The four digits in an arm name are not always the same thing
+
+An arm is named for its tool and a four digit number, and that number is always
+the payload rate times a thousand. The **unit** of the rate is set by the
+family, so the same digits mean three different quantities.
+
+| Arm name | Reads as | Which is |
+|---|---|---|
+| `hugo-0050` | 0.05 bits per pixel | An absolute rate: bits hidden per pixel of the image |
+| `juniward-0050` | 0.05 bits per non-zero AC coefficient | An absolute rate, over JPEG coefficients rather than pixels |
+| `steghide-0050` | 5% of capacity | A relative rate: a share of what that tool said that picture could hold |
+| `append_after_eoi-0000` | n/a | A fixed payload, the same on every image |
+
+`hugo-0400` and `steghide-0500` are not "more payload" versions of each other,
+and the relative rates are not comparable between pictures either, because
+steghide's capacity depends on the content of the photograph.
+
+### Every JPEG arm is quality 95
+
+The JPEG arms and their clean halves are written at quality 95: one setting,
+everywhere, both halves, with identical quantisation tables. Steganalysis
+performance on JPEG moves sharply with the quality factor, so a number measured
+here is a number at quality 95 and should be reported as one.
+
+### The appended-data arm
+
+This is the sanity check. Anything claiming to detect steganography should catch
+it at close to 100%; a tool that misses it is not reading the file.
+
+The payload is a fixed 4,122 byte literal, identical in all 10,000 images, sat
+after the end-of-image marker. That makes it a clean control and a useless
+training target: a classifier trained on this arm learns one byte string and
+reports a perfect score that means nothing.
+
+### The tool arms carry no passphrase
+
+steghide and outguess were run without one, so all 54,348 samples in those six
+arms can be extracted by anybody who has them. That's deliberate, because a
+corpus whose payloads nobody can recover cannot be checked, but it does mean
+these arms are readable rather than merely detectable.
 
 ## The clean arms
 
@@ -56,7 +93,24 @@ Shards stream without unpacking and every major dataset loader reads them.
 | `source_png` | The cover this descends from. Group by it to split |
 | `cover_licence` | The cover's licence, artist, credit line and source URL |
 | `sha256` | The image's digest, checked when it was packed |
-| `rate`, `rate_unit` | The nominal payload and its units |
-| `samples_changed` or `coefficients_changed` | How much actually changed |
-| `pairing` | Whether the clean half came off the same writer |
-| `coding` | Simulated at the optimal rate, not a real syndrome-trellis code |
+| `arm`, `tool` | Which arm this came from, and what made it |
+| `rate` | The nominal payload, `null` on the clean arms |
+| `licence_join` | How this file's licence was traced back to its cover |
+
+Every one of the 39 arms carries those seven. Nothing else is universal,
+and a loader that assumes otherwise falls over on the first arm it has not seen
+before. Reach for anything in the next table with `record.get(...)` rather than
+`record[...]`.
+
+| Field | Arms that have it | Arms that don't |
+|---|---|---|
+| `clean`, `clean_sha256`, `stego`, `stego_sha256` | The 35 stego arms | The 4 clean arms, which are one half rather than a pair |
+| `file`, `role` | The 4 clean arms | The 35 stego arms |
+| `rate_unit`, `coding` | The 28 adaptive arms | The 6 tool arms, the appended-data arm, the 4 clean arms |
+| `domain` | The 28 adaptive arms, `clean-grey`, `clean-jpeg` | The 6 tool arms, the appended-data arm, `clean-jpeg-tools`, `clean-outguess` |
+| `samples_changed`, `change_rate` | The 20 spatial adaptive arms | Everything else, the DCT arms included |
+| `coefficients_changed` | The 8 DCT adaptive arms | Everything else |
+| `jpeg_quality`, `payload_bytes`, `detail` | The 6 tool arms and the appended-data arm | Everything else. The DCT arms are quality 95 too, they just don't record it |
+| `capacity_bytes` | The 6 tool arms, whose rates are relative to it | Everything else |
+| `pairing` | The 3 outguess arms only | Everything else |
+| `source_png` | All 39 arm shards | The cover shards, which call the same value `file` |

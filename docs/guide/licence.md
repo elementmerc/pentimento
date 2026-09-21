@@ -35,8 +35,12 @@ licence asks of them.
 
 ## Citing it
 
-`CITATION.cff` ships with the corpus and both GitHub and Zenodo render it
-automatically.
+`CITATION.cff` ships beside the shards. It's [Citation File
+Format](https://citation-file-format.github.io/), which is plain YAML, so you
+can read it as it stands or hand it to a reference manager that speaks CFF.
+
+None of the four places the corpus is published renders it into a formatted
+citation for you, so copy the fields out yourself.
 
 ## If something looks wrong
 
