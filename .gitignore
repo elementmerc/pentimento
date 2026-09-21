@@ -1,0 +1,8 @@
+
+# The identity kit, until the board is settled. Deliberately untracked.
+brand/
+
+# Local operator state: session handoffs, for-hephaestus.md, planning notes.
+# Never committed, in any repo on this fleet, regardless of the repo's own
+# visibility, so a repo flipping public never publishes it by accident.
+private/
