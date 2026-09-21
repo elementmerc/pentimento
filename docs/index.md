@@ -23,8 +23,8 @@ features:
     details: 5,429 of the covers require attribution, and their stego derivatives inherit it. Every sample carries its cover's licence, artist and source URL, so one arm is enough to comply.
   - title: Pairs that differ only in the payload
     details: Both halves of every pair come off the same encoder. Where a tool rewrites the file, its clean half is written by that same tool.
-  - title: Rebuildable byte for byte
-    details: Every generator is seeded, every file has a sha256, and every sample records how much actually changed.
+  - title: Verifiable byte for byte
+    details: Every generator is seeded, so the same covers give the same arms. Every file has a sha256 and every sample records how much actually changed, so the corpus can be checked rather than taken on trust.
 ---
 
 ## Start here
