@@ -34,8 +34,11 @@ export default {
       property: 'og:description',
       content: 'A steganalysis corpus with its licences attached.',
     }],
-    ['meta', { property: 'og:image', content: `${SITE}${BASE}social-card.png` }],
-    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    // No `og:image` until `public/social-card.png` exists. Pointing the tag at a file nobody
+    // drew gives every share a blank preview, which is worse than having no tag. Add the tag
+    // and the file in one commit, and note that og:image has to be ABSOLUTE: a card served
+    // from a relative path is fetched by a crawler with no page context and does not resolve.
+    ['meta', { name: 'twitter:card', content: 'summary' }],
   ],
 
   themeConfig: {
@@ -81,7 +84,7 @@ export default {
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/elementmerc/stegobench' },
+      { icon: 'github', link: 'https://github.com/elementmerc/pentimento' },
     ],
 
     outline: { level: [2, 3], label: 'On this page' },
