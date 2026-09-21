@@ -107,10 +107,11 @@ before. Reach for anything in the next table with `record.get(...)` rather than
 | `clean`, `clean_sha256`, `stego`, `stego_sha256` | The 35 stego arms | The 4 clean arms, which are one half rather than a pair |
 | `file`, `role` | The 4 clean arms | The 35 stego arms |
 | `rate_unit`, `coding` | The 28 adaptive arms | The 6 tool arms, the appended-data arm, the 4 clean arms |
-| `domain` | The 28 adaptive arms, `clean-grey`, `clean-jpeg` | The 6 tool arms, the appended-data arm, `clean-jpeg-tools`, `clean-outguess` |
+| `domain` | The 28 adaptive arms and all 4 clean arms, 32 in total | The 6 tool arms and the appended-data arm |
 | `samples_changed`, `change_rate` | The 20 spatial adaptive arms | Everything else, the DCT arms included |
 | `coefficients_changed` | The 8 DCT adaptive arms | Everything else |
 | `jpeg_quality`, `payload_bytes`, `detail` | The 6 tool arms and the appended-data arm | Everything else. The DCT arms are quality 95 too, they just don't record it |
 | `capacity_bytes` | The 6 tool arms, whose rates are relative to it | Everything else |
 | `pairing` | The 3 outguess arms only | Everything else |
 | `source_png` | All 39 arm shards | The cover shards, which call the same value `file` |
+| `source_jpeg` | The 8 DCT adaptive arms and the 4 clean arms, 12 in total | The 20 spatial adaptive arms, the 6 tool arms, the appended-data arm |
