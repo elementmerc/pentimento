@@ -10,7 +10,7 @@
 //
 // `ignoreDeadLinks` is deliberately NOT set, so the build fails on a broken internal link.
 
-const BASE = process.env.DOCS_BASE || '/'
+const BASE = process.env.DOCS_BASE || '/pentimento/'
 const SITE = process.env.DOCS_SITE || 'https://elementmerc.github.io'
 
 export default {
