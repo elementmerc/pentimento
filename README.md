@@ -48,6 +48,11 @@ steganography should catch at close to 100%. Shards are grouped one set per arm,
 so evaluating against WOW at 0.2 bits per pixel does not mean downloading MiPOD
 to get it.
 
+outguess is the one short arm, 8,119 rather than 10,000: it refuses covers it
+cannot fit a payload into, and the ones it refuses are the small and the busy
+covers. An outguess arm is therefore a different cover distribution from a full
+one, which matters when you compare across arms.
+
 Three nested tiers: **Nano** (200 covers, 1.0 GB), **Lite** (1,000, 4.8 GB) and
 **Core** (10,000, 48 GB). A tier is the first *n* covers of one fixed ordering,
 so a smaller tier is exactly a prefix of a larger one, byte for byte.

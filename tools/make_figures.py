@@ -57,7 +57,7 @@ ARMS = [
     ("uerd", "UERD", ["0.05", "0.1", "0.2", "0.4"], 10_000, "dct"),
     ("steghide", "steghide", ["5%", "20%", "50%"], 10_000, "tool"),
     ("outguess", "outguess", ["5%", "20%", "50%"], 8_119, "tool"),
-    ("append", "appended data", ["control"], 10_000, "control"),
+    ("append", "appended data", ["one fixed payload"], 10_000, "control"),
 ]
 
 #: The licence spread, from the cover manifest.
@@ -84,7 +84,9 @@ CORPORA = [
 ]
 
 #: The three measurements lost to a pairing confound, which is why the rule is
-#: enforced structurally rather than restated.
+#: enforced structurally rather than restated. No longer drawn: the operator
+#: took the block off F3 on 2026-09-22, and the README carries it as prose
+#: beneath the figure. Kept here because it is the reason the rule exists.
 CONFOUNDS = [
     ("outguess re-encoded at quality 75 whatever it was given",
      "the halves came from different quality settings"),
@@ -218,12 +220,6 @@ def fig_arms(P):
                           fill=colour[domain] if domain != "control" else "mid", P=P))
             g.append(text(x + pw - 10, y + 15, f"{n:,}", size=11, fill="faint",
                           anchor="end", font=MONO, P=P))
-        # The one short arm, annotated in the space its missing fourth rate
-        # leaves. A gap nobody explains reads as a bug in the corpus.
-        if _key == "outguess":
-            g.append(text(cx + 3 * cw + 4, y + 15,
-                          "refuses the covers it cannot fit a payload into",
-                          size=11, fill="closed", P=P))
 
     g.append(line(48, summary - 16, W - 48, summary - 16, stroke="line", P=P))
     for i, (n, cap) in enumerate([
@@ -305,12 +301,13 @@ def fig_licences(P):
 
 # ── F3 · the rule that makes it worth anything ───────────────────────────
 def fig_pairs(P):
-    W, H = 1200, 470
+    W, H = 1200, 324
     g = []
     g.append(text(48, 60, "Pairs that differ only in the payload", size=32,
                   weight=600, font=DISPLAY, P=P))
-    g.append(text(48, 88, "Both halves come off the same encoder, through the same code "
-                          "path, in the same number of writes.", size=15, fill="mid", P=P))
+    g.append(text(48, 88, "Both halves come off the same encoder, through the same "
+                          "code path, in the same number of writes.", size=15,
+                  fill="mid", P=P))
 
     y = 130
     g.append(rect(48, y, 250, 76, fill="card", stroke="line", rx=4, P=P))
@@ -327,8 +324,10 @@ def fig_pairs(P):
     g.append(text(422, y - 8, "Nothing written", size=15, weight=600, P=P))
     g.append(text(422, y + 14, "the clean half", size=11, fill="faint", P=P))
 
-    g.append(rect(400, y + 90, 300, 64, fill="card", stroke="accent", sw=1.6, rx=4, P=P))
-    g.append(text(422, y + 116, "Payload written", size=15, weight=600, fill="accent", P=P))
+    g.append(rect(400, y + 90, 300, 64, fill="card", stroke="accent", sw=1.6,
+                  rx=4, P=P))
+    g.append(text(422, y + 116, "Payload written", size=15, weight=600,
+                  fill="accent", P=P))
     g.append(text(422, y + 138, "the only difference", size=11, fill="faint", P=P))
 
     g.append(line(700, y - 2, 752, y + 30, stroke="faint", P=P))
@@ -338,18 +337,6 @@ def fig_pairs(P):
                   fill="accent", P=P))
     g.append(text(780, y + 74, "containers verified byte-identical at pack time",
                   size=12, fill="mid", P=P))
-
-    cy = 306
-    g.append(line(48, cy - 16, W - 48, cy - 16, stroke="line", P=P))
-    g.append(text(48, cy + 6, "Three measurements were lost before the rule was "
-                              "enforced structurally rather than restated",
-                  size=14, weight=600, fill="closed", P=P))
-    for i, (what, why) in enumerate(CONFOUNDS):
-        yy = cy + 34 + i * 40
-        g.append(text(48, yy, f"{i + 1}", size=13, weight=600, fill="closed",
-                      font=MONO, P=P))
-        g.append(text(74, yy, what, size=13, P=P))
-        g.append(text(74, yy + 17, why, size=11.5, fill="faint", P=P))
     return svg(W, H, "\n".join(g),
                "How a matched pair is made: both halves from one photograph "
                "through one encoder, differing only in the payload", P)
