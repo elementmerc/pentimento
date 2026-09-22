@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320" role="img" aria-label="Pentimento: a steganalysis corpus with its licences attached">
+  <rect width="1280" height="320" fill="#F5F5F7"/>
+  <g opacity="0.07">
+    <rect x="900" y="-70" width="300" height="300" rx="34" fill="#0071E3"/>
+    <rect x="980" y="-140" width="300" height="300" rx="34" fill="#1D1D1F"/>
+    <rect x="1080" y="160" width="230" height="230" rx="26" fill="#0071E3"/>
+  </g>
+  <g transform="translate(72 122.0)">
+    <rect x="6" y="14" width="40" height="40" rx="7" fill="#0071E3"/>
+    <rect x="18" y="6" width="40" height="40" rx="7" fill="#1D1D1F" opacity="0.92"/>
+  </g>
+  <text x="160" y="156.0" font-family="Fraunces, Georgia, serif" font-size="52" font-weight="600" fill="#1D1D1F">Pentimento</text>
+  <text x="163" y="188.0" font-family="Hanken Grotesk, system-ui, sans-serif" font-size="18" fill="#6E6E73">A steganalysis corpus with its licences attached.</text>
+  <text x="1208" y="134.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="2.2" fill="#0071E3">CORE TIER</text>
+  <text x="1208" y="162.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" fill="#6E6E73">10,000 covers</text>
+  <text x="1208" y="182.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" fill="#6E6E73">341,997 pairs</text>
+  <text x="1208" y="202.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" fill="#6E6E73">39 arms</text>
+</svg>
