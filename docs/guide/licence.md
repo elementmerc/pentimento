@@ -9,12 +9,12 @@ on that instead.
 
 | Licence | Covers |
 |---|---|
-| CC0 | 2,597 |
-| CC BY 2.0 | 2,596 |
-| Public domain | 1,974 |
-| CC BY 4.0 | 1,808 |
-| CC BY 3.0 | 838 |
-| CC BY 2.5 | 185 |
+| CC0 | 2,625 |
+| CC BY 2.0 | 2,624 |
+| Public domain | 1,922 |
+| CC BY 4.0 | 1,794 |
+| CC BY 3.0 | 850 |
+| CC BY 2.5 | 183 |
 | CC BY 1.0 | 2 |
 
 **5,453 of 10,000 covers require attribution**, which is 54.5%.

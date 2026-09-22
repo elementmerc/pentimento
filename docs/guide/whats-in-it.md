@@ -43,8 +43,10 @@ here is a number at quality 95 and should be reported as one.
 
 ### The appended-data arm
 
-This is the sanity check. Anything claiming to detect steganography should catch
-it at close to 100%; a tool that misses it is not reading the file.
+This is the sanity check. Anything claiming to detect steganography should find
+it trivially; a tool that misses it is not reading the file. No detector result
+is published here, so this is a statement about what the arm is for rather than
+a measurement: if you want a number, measure it and say how.
 
 The payload is a fixed 4,122 byte literal, identical in all 10,000 images, sat
 after the end-of-image marker. That makes it a clean control and a useless

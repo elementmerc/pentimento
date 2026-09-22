@@ -8,8 +8,8 @@ Covers and arms are packaged separately, so you can take one without the other.
 | Host | Good for | Link |
 |---|---|---|
 | Internet Archive | The canonical copy. No account, no approval, permanent | [pentimento-core-v1](https://archive.org/details/pentimento-core-v1) |
-| HuggingFace | Loading straight into a training pipeline | [the-malware-files/pentimento-core-v1](https://huggingface.co/datasets/the-malware-files/pentimento-core-v1) |
-| Kaggle | Notebooks | [elementmerc/pentimento-core-v1](https://www.kaggle.com/datasets/elementmerc/pentimento-core-v1) |
+| HuggingFace | Loading straight into a training pipeline | [the-malware-files/pentimento-core](https://huggingface.co/datasets/the-malware-files/pentimento-core) |
+| Kaggle | Notebooks | [elementmerc/pentimento-core](https://www.kaggle.com/datasets/elementmerc/pentimento-core) |
 | Academic Torrents | Bulk transfer, seeded from the Archive copy | Search `pentimento-core-v1` |
 
 ## Take only what you need
@@ -33,14 +33,14 @@ its clean half, check them, read a sample. About 130 MB.
 BASE=https://archive.org/download/pentimento-core-v1
 
 # The paperwork first: it is small and it tells you what the rest is.
-curl -sO $BASE/README.md -O $BASE/SHA256SUMS -O $BASE/load_pentimento.py
+curl -sO $BASE/README.md -O $BASE/SHA256SUMS-covers -O $BASE/SHA256SUMS-arms -O $BASE/load_pentimento.py
 
 # One arm, and the clean half it is measured against.
 curl -O $BASE/pentimento-core-wow-0200-00000.tar
 curl -O $BASE/pentimento-core-clean-grey-00000.tar
 
 # Check what arrived. A shard that fails here changed in transit.
-grep -E 'wow-0200-00000|clean-grey-00000' SHA256SUMS | sha256sum -c
+grep -E 'wow-0200-00000|clean-grey-00000' SHA256SUMS-arms | sha256sum -c
 
 # Read it. Nothing to install.
 python3 load_pentimento.py pentimento-core-wow-0200-00000.tar
@@ -77,7 +77,7 @@ On HuggingFace:
 
 ```bash
 pip install huggingface_hub
-hf download the-malware-files/pentimento-core-v1 --repo-type dataset --local-dir pentimento
+hf download the-malware-files/pentimento-core --repo-type dataset --local-dir pentimento
 ```
 
 ## Smaller tiers
@@ -97,10 +97,13 @@ file, byte for byte, as Core's first cover shard.
 
 ## Check what you downloaded
 
-`SHA256SUMS` ships beside the shards in each part, so verifying is one command:
+Each part ships its own checksum file, `SHA256SUMS-covers` for the cover
+shards and `SHA256SUMS-arms` for the arms. They are named per part because
+every destination is flat: two files both called `SHA256SUMS` would land on
+one name and the second would silently replace the first.
 
 ```bash
-sha256sum -c SHA256SUMS
+sha256sum -c SHA256SUMS-covers
 ```
 
 Verify before use. A shard that does not match is a shard that changed in

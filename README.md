@@ -44,7 +44,7 @@ project of its own.
 
 Seven adaptive schemes across four payload rates, the two end-user tools people
 actually run, and an appended-data control that anything claiming to detect
-steganography should catch at close to 100%. Shards are grouped one set per arm,
+steganography should find trivially. Shards are grouped one set per arm,
 so evaluating against WOW at 0.2 bits per pixel does not mean downloading MiPOD
 to get it.
 
@@ -77,14 +77,14 @@ pair whose containers differ.
 BASE=https://archive.org/download/pentimento-core-v1
 
 # The paperwork first: it is small and it tells you what the rest is.
-curl -sO $BASE/README.md -O $BASE/SHA256SUMS -O $BASE/load_pentimento.py
+curl -sO $BASE/README.md -O $BASE/SHA256SUMS-covers -O $BASE/SHA256SUMS-arms -O $BASE/load_pentimento.py
 
 # One arm, and the clean half it is measured against. About 130 MB.
 curl -O $BASE/pentimento-core-wow-0200-00000.tar
 curl -O $BASE/pentimento-core-clean-grey-00000.tar
 
 # Check what arrived. A shard that fails here changed in transit.
-grep -E 'wow-0200-00000|clean-grey-00000' SHA256SUMS | sha256sum -c
+grep -E 'wow-0200-00000|clean-grey-00000' SHA256SUMS-arms | sha256sum -c
 
 # Read it. Nothing to install.
 python3 load_pentimento.py pentimento-core-wow-0200-00000.tar

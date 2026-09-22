@@ -53,8 +53,8 @@ hiding.
     test:  09710.png (hugo 0.1)      test:  every version of 05047
 ```
 
-Group by the cover. A nine point accuracy swing has been measured in the
-literature from the split alone.
+Group by the cover. Results in the literature differ by several accuracy points
+on the choice of split alone.
 
 ### Which field names the cover
 
@@ -77,7 +77,7 @@ the point of either.
 
 | | `split` field | `fold()` in `SPLITS.md` |
 |---|---|---|
-| What it is | A fixed `train` / `test` label, 8,032 and 1,968 covers | A recipe: `sha256(cover)[:8] % folds` |
+| What it is | A fixed `train` / `test` label, 8,029 and 1,971 covers | A recipe: `sha256(cover)[:8] % folds` |
 | Where it lives | Cover records only, alongside `split_salt: "pentimento-v1"` | Nowhere; you write it |
 | Works from an arm alone | No, you need the cover tier to join against | Yes, from `source_png` |
 | Good for | One published holdout that two readers reproduce identically | k-fold cross validation |
@@ -115,11 +115,12 @@ differ in the encoder as well as in the payload.
 
 ## Verify before you publish
 
-Every part ships a `SHA256SUMS` beside its shards. If a number is going into a
+Every part ships its own checksum file, `SHA256SUMS-covers` or
+`SHA256SUMS-arms`, beside its shards. If a number is going into a
 paper, check them first:
 
 ```bash
-sha256sum -c SHA256SUMS
+sha256sum -c SHA256SUMS-arms
 ```
 
 It costs a minute, and a shard that arrived truncated reads as a smaller
