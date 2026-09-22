@@ -1,0 +1,124 @@
+# Pentimento, brand assets
+
+Visual identity for **Pentimento**, a steganalysis corpus with its licences
+attached. Iwugo Industries.
+
+The name is the brief. In painting, a *pentimento* is the earlier image showing
+through as the upper layer turns translucent, and conservators find them with
+infrared reflectography and X-radiography. It is the same problem as
+steganalysis and the same word, so the identity is literal rather than
+decorative: **two squares, one behind the other, the front one just translucent
+enough that the back one shows through the overlap.** That overlap is the mark.
+
+## Palette
+
+| Role | Hex | Use |
+|---|---|---|
+| Ink | `#1D1D1F` | The surface square, body text, dark ground |
+| Blue | `#0071E3` | The layer underneath, links, accents |
+| Ground | `#F5F5F7` | Light ground, the default page |
+| Paper | `#FFFFFF` | Cards, the reversed mark |
+| Muted | `#86868B` | Captions, secondary text on light |
+| Muted dark | `#6E6E73` | Body text that is not a heading |
+| Line | `#D2D2D7` | Rules, borders, dividers |
+
+Contrast, measured, because a light palette is where this goes wrong:
+
+| Pair | Ratio | Verdict |
+|---|---|---|
+| Ink on Ground | 16.8:1 | body text, any size |
+| Blue on Ground | 4.6:1 | body text, links |
+| Muted on Ground | 3.6:1 | **captions at 18px and above only** |
+| Muted dark on Ground | 5.3:1 | body text |
+| Paper on Ink | 16.8:1 | reversed |
+
+Never put Blue on Ink as body text (3.6:1). On dark grounds use Paper for text
+and keep Blue for the mark and for graphic accents.
+
+## Typography
+
+- **Display and wordmark:** Fraunces, 600. Old-style, warm, and doing the art
+  half of the idea.
+- **Body:** Hanken Grotesk. Shared with the sibling project on purpose, so Pentimento
+  reads as a sibling rather than a stranger.
+- **Data:** IBM Plex Mono. Counts, hashes, licence codes, arm names. Anything a
+  reader might compare character by character.
+
+| Level | Size / leading | Face |
+|---|---|---|
+| Display | 52 / 1.08 | Fraunces 600 |
+| Title | 30 / 1.24 | Fraunces 600 |
+| Lede | 21 / 1.5 | Hanken Grotesk 400 |
+| Body | 17 / 1.6 | Hanken Grotesk 400 |
+| Caption | 14 / 1.55 | Hanken Grotesk 400 |
+| Data | 13 | IBM Plex Mono 400 |
+| Eyebrow | 12, 0.16em, caps | IBM Plex Mono 500 |
+
+The wordmark is set in Fraunces 600 at `-0.015em` tracking, sentence case. Never
+uppercase it.
+
+## Files
+
+### logo/
+- `mark.svg` — primary, Blue behind Ink. Use this by default
+- `mark-reversed.svg` — for Ink and other dark grounds
+- `mark-mono-ink.svg` / `mark-mono-white.svg` — one ink, for etching, embroidery
+  and anywhere colour is not available. The back square drops to 45% of the same
+  ink rather than changing hue
+- `lockup-horizontal.svg` / `-dark.svg` — mark, wordmark and descriptor in a row
+- `lockup-stacked.svg` / `-dark.svg` — mark above wordmark
+
+### favicon/
+- `favicon.svg` — modern browsers
+
+### icon/
+- `icon-512.svg` — PWA and app icon
+- `maskable-512.svg` — Android maskable, mark inset into the safe zone on Ground
+
+### social/
+- `readme-banner-1280x320.svg` / `-dark.svg` — top of README
+- `github-social-1280x640.svg` — GitHub repo social preview
+
+## Clear space and minimum size
+
+Clear space on every side is **twice the front square's corner radius**, which
+is 14 units in the 64-unit viewBox. Nothing enters that margin.
+
+- Mark: minimum **16 px**. Below that use `mark-mono-*`, because the 8% opacity
+  difference in the overlap stops resolving
+- Horizontal lockup: minimum **120 px** wide. Below that, stack it
+- Stacked lockup: minimum **96 px** wide
+
+## Do not
+
+- Do not separate the two squares. The overlap is the entire idea
+- Do not square up the offset, or align the two squares on an axis
+- Do not make the front square fully opaque. At 100% there is no pentimento
+- Do not recolour the back square to anything but Blue, except in the mono marks
+- Do not add a gradient, a shadow or a glow
+- Do not set the wordmark in anything but Fraunces, and never in caps
+- Do not put Blue text on Ink
+
+## Rasterising
+
+The sources are SVG. PNG exports, when a host demands one:
+
+```sh
+for s in 16 32 48 180 192 512; do
+  rsvg-convert -w $s -h $s docs/brand/logo/mark.svg -o mark-$s.png
+done
+rsvg-convert -w 1280 -h 640 docs/brand/social/github-social-1280x640.svg \
+  -o github-social-1280x640.png
+```
+
+`rsvg-convert` ships with librsvg. The SVGs reference Fraunces, Hanken Grotesk
+and IBM Plex Mono by name, so install them before rasterising anything with text
+in it or the fallback will be substituted silently.
+
+## Where this came from
+
+Chosen from a board of eight directions: the original concept in its own warm
+palette, five alternatives each with a distinct mark, and the concept recoloured
+into two other palettes. This is the third of those, the concept on Apple's
+neutrals. It was picked because it is the only one that reads on paper, which
+matters for a corpus whose readers are writing papers.

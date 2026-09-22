@@ -76,7 +76,7 @@ ATTRIBUTION_REQUIRED = 5_453
 #: Sources: stegobench/docs/design/cover-source-licensing.md
 CORPORA = [
     ("BOSSbase", "10,000", "No licence survives. The organisers claimed rights "
-     "and the terms died with their host", False, False),
+     "and the terms died with their host", True, False),
     ("ALASKA2", "80,000", "CC BY-NC-ND. The no-derivatives term forbids "
      "publishing a stego image made from a cover", True, False),
     ("Pentimento", "10,000", "CC0, public domain and CC BY only. Every file "
@@ -112,6 +112,25 @@ DARK = {
 DISPLAY = "Fraunces, Georgia, 'Times New Roman', serif"
 BODY = "'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif"
 MONO = "'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace"
+
+
+def wrap(s: str, width: int) -> list[str]:
+    """Break text on spaces, never mid-word.
+
+    The first draft sliced at a fixed column and rendered "its own te / rms" in
+    a published figure. SVG has no line box, so every wrap here is explicit.
+    """
+    lines, line = [], ""
+    for word in s.split():
+        trial = f"{line} {word}".strip()
+        if len(trial) > width and line:
+            lines.append(line)
+            line = word
+        else:
+            line = trial
+    if line:
+        lines.append(line)
+    return lines
 
 
 def esc(s: str) -> str:
@@ -163,22 +182,26 @@ def svg(w, h, body, label, P):
 
 # ── F1 · what is in it ───────────────────────────────────────────────────
 def fig_arms(P):
-    W, H = 1200, 520
+    rows = len(ARMS)
+    top, rowh, lx, cx, cw = 130, 34, 48, 300, 108
+    table_end = top + rows * rowh
+    summary = table_end + 34
+    W, H = 1200, summary + 96
     g = []
     g.append(text(48, 60, "What is in it", size=32, weight=600, font=DISPLAY, P=P))
     g.append(text(48, 88, f"{PAIRS:,} matched pairs across {STEGO_ARMS} stego arms, "
-                          f"plus {CLEAN_ARMS} clean arms that are the other half of every pair.",
-                  size=15, fill="mid", P=P))
+                          f"plus {CLEAN_ARMS} clean arms that are the other half "
+                          f"of every pair.", size=15, fill="mid", P=P))
 
-    top, rowh, lx, cx, cw = 130, 34, 48, 300, 108
-    g.append(text(lx, top - 14, "FAMILY", size=10, fill="faint", weight=600, track="0.1em", P=P))
+    g.append(text(lx, top - 14, "FAMILY", size=10, fill="faint", weight=600,
+                  track="0.1em", P=P))
     g.append(text(cx, top - 14, "PAYLOAD RATE, AND SAMPLES AT EACH", size=10,
                   fill="faint", weight=600, track="0.1em", P=P))
 
     colour = {"spatial": "accent", "dct": "accent", "tool": "ink", "control": "flat"}
     for i, (_key, label, rates, n, domain) in enumerate(ARMS):
         y = top + i * rowh
-        g.append(line(lx, y + 22, W - 48, y + 22, stroke="grid", P=P))
+        g.append(line(lx, y + 26, W - 48, y + 26, stroke="grid", P=P))
         g.append(text(lx, y + 15, label, size=14, weight=600, P=P))
         dom = {"spatial": "spatial", "dct": "JPEG DCT", "tool": "end-user tool",
                "control": "control"}[domain]
@@ -186,28 +209,32 @@ def fig_arms(P):
         for j, r in enumerate(rates):
             x = cx + j * cw
             full = n >= 10_000
-            g.append(rect(x, y, cw - 12, 22, fill=colour[domain],
+            # "control" is a word rather than a rate, so it needs a wider pill
+            # than "0.05" does; at one column it sat on top of its own count.
+            pw = (2 * cw - 12) if domain == "control" else (cw - 12)
+            g.append(rect(x, y, pw, 22, fill=colour[domain],
                           opacity=0.14 if full else 0.09, rx=3, P=P))
             g.append(text(x + 10, y + 15, r, size=12, weight=600,
                           fill=colour[domain] if domain != "control" else "mid", P=P))
-            g.append(text(x + cw - 22, y + 15, f"{n:,}", size=11, fill="faint",
+            g.append(text(x + pw - 10, y + 15, f"{n:,}", size=11, fill="faint",
                           anchor="end", font=MONO, P=P))
+        # The one short arm, annotated in the space its missing fourth rate
+        # leaves. A gap nobody explains reads as a bug in the corpus.
+        if _key == "outguess":
+            g.append(text(cx + 3 * cw + 4, y + 15,
+                          "refuses the covers it cannot fit a payload into",
+                          size=11, fill="closed", P=P))
 
-    # The one arm that is short, and why. A gap nobody explains reads as a bug.
-    yo = top + 8 * rowh
-    g.append(text(cx + 3 * cw + 8, yo + 15, "outguess refuses the covers it cannot fit",
-                  size=11, fill="closed", P=P))
-
-    box = H - 120
-    g.append(line(48, box - 16, W - 48, box - 16, stroke="line", P=P))
+    g.append(line(48, summary - 16, W - 48, summary - 16, stroke="line", P=P))
     for i, (n, cap) in enumerate([
             (f"{COVERS:,}", "cover photographs"),
             (f"{PAIRS:,}", "matched stego pairs"),
             (f"{STEGO_ARMS + CLEAN_ARMS}", "arms in total"),
             ("48 GB", "everything, or one arm at 1.3 GB")]):
         x = 48 + i * 290
-        g.append(text(x, box + 22, n, size=30, weight=600, font=MONO, fill="accent", P=P))
-        g.append(text(x, box + 44, cap, size=12, fill="mid", P=P))
+        g.append(text(x, summary + 26, n, size=30, weight=600, font=MONO,
+                      fill="accent", P=P))
+        g.append(text(x, summary + 50, cap, size=12, fill="mid", P=P))
     return svg(W, H, "\n".join(g),
                f"The Pentimento corpus: {PAIRS:,} matched pairs across "
                f"{STEGO_ARMS} stego arms and {CLEAN_ARMS} clean arms", P)
@@ -215,53 +242,62 @@ def fig_arms(P):
 
 # ── F2 · why it exists ───────────────────────────────────────────────────
 def fig_licences(P):
-    W, H = 1200, 560
+    top, rowh = 140, 112
+    lic_y = top + len(CORPORA) * rowh + 24
+    W, H = 1200, lic_y + 150
     g = []
     g.append(text(48, 60, "Why it exists", size=32, weight=600, font=DISPLAY, P=P))
-    g.append(text(48, 88, "The standard corpora in this field can be used and cannot be "
-                          "republished. A stego image is a derivative work, so the arms "
-                          "built from them cannot be shared either.",
-                  size=15, fill="mid", P=P))
+    for i, ln in enumerate(wrap(
+            "The standard corpora in this field can be used and cannot be "
+            "republished. A stego image is a derivative work, so the arms built "
+            "from them cannot be shared either.", 96)):
+        g.append(text(48, 88 + i * 21, ln, size=15, fill="mid", P=P))
 
-    top, rowh = 130, 108
     for i, (name, n, why, use, publish) in enumerate(CORPORA):
         y = top + i * rowh
         mine = name == "Pentimento"
-        g.append(rect(48, y, W - 96, rowh - 14, fill="card",
-                      stroke="accent" if mine else "line", sw=1.6 if mine else 1, rx=4, P=P))
+        g.append(rect(48, y, W - 96, rowh - 18, fill="card",
+                      stroke="accent" if mine else "line",
+                      sw=1.6 if mine else 1, rx=4, P=P))
         g.append(text(72, y + 34, name, size=20, weight=600, font=DISPLAY,
                       fill="accent" if mine else "ink", P=P))
-        g.append(text(72, y + 58, f"{n} covers", size=12, fill="faint", font=MONO, P=P))
-        g.append(text(230, y + 34, why[:64], size=13, fill="mid", P=P))
-        if len(why) > 64:
-            g.append(text(230, y + 54, why[64:], size=13, fill="mid", P=P))
+        g.append(text(72, y + 58, f"{n} covers", size=12, fill="faint",
+                      font=MONO, P=P))
+        for j, ln in enumerate(wrap(why, 58)):
+            g.append(text(240, y + 32 + j * 20, ln, size=13, fill="mid", P=P))
 
         for j, (label, ok) in enumerate((("use it", use), ("republish it", publish))):
-            x = W - 330 + j * 150
+            x = W - 340 + j * 150
             tone = "accent" if ok else "closed"
-            g.append(rect(x, y + 22, 132, 44, fill=f'{tone}_soft', rx=4, P=P))
-            g.append(text(x + 66, y + 42, "yes" if ok else "no", size=17, weight=600,
-                          anchor="middle", fill=tone, P=P))
-            g.append(text(x + 66, y + 58, label, size=11, anchor="middle", fill="mid", P=P))
+            g.append(rect(x, y + 20, 132, 48, fill=f"{tone}_soft", rx=4, P=P))
+            g.append(text(x + 66, y + 42, "yes" if ok else "no", size=17,
+                          weight=600, anchor="middle", fill=tone, P=P))
+            g.append(text(x + 66, y + 60, label, size=11, anchor="middle",
+                          fill="mid", P=P))
 
-    ly = top + 3 * rowh + 16
-    g.append(text(48, ly, "Every Pentimento cover, by licence", size=14, weight=600, P=P))
-    bx, bw, bh = 48, W - 96, 34
+    g.append(text(48, lic_y, "Every Pentimento cover, by licence", size=14,
+                  weight=600, P=P))
+    bx, bw, bh = 48, W - 96, 36
     run = 0
     for i, (lic, n) in enumerate(LICENCES):
         w = bw * n / COVERS
-        g.append(rect(bx + run, ly + 16, w - 2, bh, fill="accent",
-                      opacity=round(0.85 - i * 0.1, 2), rx=2, P=P))
-        if w > 96:
-            g.append(text(bx + run + 10, ly + 38, lic, size=12, weight=600, fill="card", P=P))
-            g.append(text(bx + run + 10, ly + 54 + 14, f"{n:,}", size=11,
-                          fill="faint", font=MONO, P=P))
+        g.append(rect(bx + run, lic_y + 16, max(2, w - 2), bh, fill="accent",
+                      opacity=round(0.9 - i * 0.11, 2), rx=2, P=P))
+        if w > 150:
+            g.append(text(bx + run + 12, lic_y + 33, lic, size=12, weight=600,
+                          fill="#FFFFFF", P=P))
+            g.append(text(bx + run + 12, lic_y + 49, f"{n:,}", size=11,
+                          fill="#FFFFFF", font=MONO, opacity=0.85, P=P))
+    # The four small slices cannot carry a label inside them, so they get a
+    # line of their own rather than a silent gap.
         run += w
-    g.append(text(48, ly + bh + 56, f"{ATTRIBUTION_REQUIRED:,} of {COVERS:,} covers "
-                                    f"require a credit line, and every stego image made "
-                                    f"from one inherits it. The line is already written "
-                                    f"into each record.",
-                  size=13, fill="mid", P=P))
+    small = ", ".join(f"{lic} {n:,}" for lic, n in LICENCES if bw * n / COVERS <= 150)
+    g.append(text(48, lic_y + bh + 38, f"and {small}", size=11.5, fill="faint", P=P))
+    for i, ln in enumerate(wrap(
+            f"{ATTRIBUTION_REQUIRED:,} of {COVERS:,} covers require a credit "
+            f"line, and every stego image made from one inherits it. The line "
+            f"is already written into each record.", 96)):
+        g.append(text(48, lic_y + bh + 68 + i * 20, ln, size=13, fill="mid", P=P))
     return svg(W, H, "\n".join(g),
                "Licence comparison: BOSSbase and ALASKA2 may be used but not "
                "republished; Pentimento may be both", P)

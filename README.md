@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/media/banner-dark.svg">
-  <img alt="Pentimento: a steganalysis corpus with its licences attached" src="docs/media/banner.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="brand/social/readme-banner-1280x320-dark.svg">
+  <img alt="Pentimento: a steganalysis corpus with its licences attached" src="brand/social/readme-banner-1280x320.svg">
 </picture>
 
 # Pentimento
