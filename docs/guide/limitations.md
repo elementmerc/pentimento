@@ -47,6 +47,6 @@ arms stay separate and labelled rather than blended.
 
 ## Attribution is not optional
 
-55% of the covers require a credit line and their stego derivatives inherit it.
+54.5% of the covers require a credit line and their stego derivatives inherit it.
 It is mechanical, because the line is already written into every record, but it
 is not optional. See [Licence and attribution](/guide/licence).

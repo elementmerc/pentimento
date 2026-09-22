@@ -17,7 +17,7 @@ on that instead.
 | CC BY 2.5 | 185 |
 | CC BY 1.0 | 2 |
 
-**5,453 of 10,000 covers require attribution**, which is 55%.
+**5,453 of 10,000 covers require attribution**, which is 54.5%.
 
 ## The credit line is already written
 
