@@ -35,7 +35,7 @@ difference makes detection slightly harder than reality.
 
 | | |
 |---|---|
-| Samples per outguess arm | 8,116, not 10,000 |
+| Samples per outguess arm | 8,119, not 10,000 |
 | Why | outguess refuses covers it cannot fit the payload into |
 | Why it matters | The refused covers are the small and the busy ones, so an outguess arm is a different cover distribution from a full arm |
 
@@ -47,6 +47,6 @@ arms stay separate and labelled rather than blended.
 
 ## Attribution is not optional
 
-54% of the covers require a credit line and their stego derivatives inherit it.
+55% of the covers require a credit line and their stego derivatives inherit it.
 It is mechanical, because the line is already written into every record, but it
 is not optional. See [Licence and attribution](/guide/licence).

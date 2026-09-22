@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Pentimento
   text: A steganalysis corpus with its licences attached
-  tagline: 10,000 cover photographs and 344,348 matched stego pairs, every image carrying its own licence and every file its own checksum.
+  tagline: 10,000 cover photographs and 341,997 matched stego pairs, every image carrying its own licence and every file its own checksum.
   actions:
     - theme: brand
       text: Get it
@@ -20,7 +20,7 @@ features:
   - title: You are allowed to redistribute it
     details: Built from permissively licensed Wikimedia Commons photographs. The standard research corpora in this field either carry no readable licence or forbid publishing anything derived from them.
   - title: The credit line travels with the pixels
-    details: 5,429 of the covers require attribution, and their stego derivatives inherit it. Every sample carries its cover's licence, artist and source URL, so one arm is enough to comply.
+    details: 5,453 of the covers require attribution, and their stego derivatives inherit it. Every sample carries its cover's licence, artist and source URL, so one arm is enough to comply.
   - title: Pairs that differ only in the payload
     details: Both halves of every pair come off the same encoder. Where a tool rewrites the file, its clean half is written by that same tool.
   - title: Verifiable byte for byte

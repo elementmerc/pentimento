@@ -1,6 +1,6 @@
 # Get it
 
-The Core tier is 10,000 covers and 344,348 stego pairs, about 48 GB in total.
+The Core tier is 10,000 covers and 341,997 stego pairs, about 48 GB in total.
 Covers and arms are packaged separately, so you can take one without the other.
 
 ## Where it is

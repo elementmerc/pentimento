@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Covers | 10,000 photographs from Wikimedia Commons |
-| Stego pairs | 344,348 |
+| Stego pairs | 341,997 |
 | Arms | 35 stego, plus 4 clean |
 | Format | WebDataset tar shards |
 | Licence | CC BY 4.0 for the collection; each file's own terms in its record |
@@ -53,7 +53,7 @@ reports a perfect score that means nothing.
 
 ### The tool arms carry no passphrase
 
-steghide and outguess were run without one, so all 54,348 samples in those six
+steghide and outguess were run without one, so all 54,357 samples in those six
 arms can be extracted by anybody who has them. That's deliberate, because a
 corpus whose payloads nobody can recover cannot be checked, but it does mean
 these arms are readable rather than merely detectable.
@@ -95,9 +95,11 @@ Shards stream without unpacking and every major dataset loader reads them.
 | `sha256` | The image's digest, checked when it was packed |
 | `arm`, `tool` | Which arm this came from, and what made it |
 | `rate` | The nominal payload, `null` on the clean arms |
+| `rate_unit` | What the rate counts, including `unstated` on the clean arms |
+| `pairing` | `container-verified`, or `no-clean-half` on the clean arms |
 | `licence_join` | How this file's licence was traced back to its cover |
 
-Every one of the 39 arms carries those seven. Nothing else is universal,
+Every one of the 39 arms carries those nine. Nothing else is universal,
 and a loader that assumes otherwise falls over on the first arm it has not seen
 before. Reach for anything in the next table with `record.get(...)` rather than
 `record[...]`.
@@ -106,12 +108,12 @@ before. Reach for anything in the next table with `record.get(...)` rather than
 |---|---|---|
 | `clean`, `clean_sha256`, `stego`, `stego_sha256` | The 35 stego arms | The 4 clean arms, which are one half rather than a pair |
 | `file`, `role` | The 4 clean arms | The 35 stego arms |
-| `rate_unit`, `coding` | The 28 adaptive arms | The 6 tool arms, the appended-data arm, the 4 clean arms |
-| `domain` | The 28 adaptive arms and all 4 clean arms, 32 in total | The 6 tool arms and the appended-data arm |
+| `coding` | The 28 adaptive arms | The 6 tool arms, the appended-data arm, the 4 clean arms |
+| `domain` | All 39, but `null` on `clean-jpeg-tools` and `clean-outguess` | Nobody, though two carry it empty |
 | `samples_changed`, `change_rate` | The 20 spatial adaptive arms | Everything else, the DCT arms included |
 | `coefficients_changed` | The 8 DCT adaptive arms | Everything else |
 | `jpeg_quality`, `payload_bytes`, `detail` | The 6 tool arms and the appended-data arm | Everything else. The DCT arms are quality 95 too, they just don't record it |
 | `capacity_bytes` | The 6 tool arms, whose rates are relative to it | Everything else |
-| `pairing` | The 3 outguess arms only | Everything else |
+| `source_sha256` | The 35 stego arms, proving which cover bytes they came from | The 4 clean arms |
 | `source_png` | All 39 arm shards | The cover shards, which call the same value `file` |
 | `source_jpeg` | The 8 DCT adaptive arms and the 4 clean arms, 12 in total | The 20 spatial adaptive arms, the 6 tool arms, the appended-data arm |

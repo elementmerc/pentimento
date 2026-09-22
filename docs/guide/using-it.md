@@ -127,7 +127,7 @@ corpus rather than as an error.
 
 ## Crediting the photographers
 
-5,429 of the 10,000 covers are CC BY and require attribution, and stego images
+5,453 of the 10,000 covers are CC BY and require attribution, and stego images
 inherit their cover's terms. `ATTRIBUTION.md` carries every credit line, and
 `ATTRIBUTION.csv` the same list in a form you can join against. If you used one
 arm rather than the whole corpus, each record names its cover under
