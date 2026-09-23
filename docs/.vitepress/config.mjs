@@ -1,3 +1,5 @@
+// Author:  Daniel Iwugo
+// Comment: Christ is King
 // Pentimento documentation site.
 //
 // Separate from Stegobench's site on purpose. Stegobench is a tool you run; Pentimento is a
