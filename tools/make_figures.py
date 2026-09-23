@@ -42,17 +42,17 @@ import sys
 # release rather than restating them. If you change one here, run that.
 
 COVERS = 10_000
-PAIRS = 341_997
+PAIRS = 344_357
 STEGO_ARMS = 35
 CLEAN_ARMS = 4
 
 #: family, label, rates, samples per arm, domain
 ARMS = [
-    ("hugo", "HUGO", ["0.05", "0.1", "0.2", "0.4"], 9_882, "spatial"),
-    ("wow", "WOW", ["0.05", "0.1", "0.2", "0.4"], 9_882, "spatial"),
-    ("suniward", "S-UNIWARD", ["0.05", "0.1", "0.2", "0.4"], 9_882, "spatial"),
-    ("hill", "HILL", ["0.05", "0.1", "0.2", "0.4"], 9_882, "spatial"),
-    ("mipod", "MiPOD", ["0.05", "0.1", "0.2", "0.4"], 9_882, "spatial"),
+    ("hugo", "HUGO", ["0.05", "0.1", "0.2", "0.4"], 10_000, "spatial"),
+    ("wow", "WOW", ["0.05", "0.1", "0.2", "0.4"], 10_000, "spatial"),
+    ("suniward", "S-UNIWARD", ["0.05", "0.1", "0.2", "0.4"], 10_000, "spatial"),
+    ("hill", "HILL", ["0.05", "0.1", "0.2", "0.4"], 10_000, "spatial"),
+    ("mipod", "MiPOD", ["0.05", "0.1", "0.2", "0.4"], 10_000, "spatial"),
     ("juniward", "J-UNIWARD", ["0.05", "0.1", "0.2", "0.4"], 10_000, "dct"),
     ("uerd", "UERD", ["0.05", "0.1", "0.2", "0.4"], 10_000, "dct"),
     ("steghide", "steghide", ["5%", "20%", "50%"], 10_000, "tool"),

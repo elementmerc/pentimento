@@ -1,6 +1,6 @@
 # Get it
 
-The Core tier is 10,000 covers and 341,997 stego pairs, about 48 GB in total.
+The Core tier is 10,000 covers and 344,357 stego pairs, about 48 GB in total.
 Covers and arms are packaged separately, so you can take one without the other.
 
 ## Where it is
@@ -10,7 +10,6 @@ Covers and arms are packaged separately, so you can take one without the other.
 | Internet Archive | The canonical copy. No account, no approval, permanent | [pentimento-core-v1](https://archive.org/details/pentimento-core-v1) |
 | HuggingFace | Loading straight into a training pipeline | [the-malware-files/pentimento-core](https://huggingface.co/datasets/the-malware-files/pentimento-core) |
 | Kaggle | Notebooks | [elementmerc/pentimento-core](https://www.kaggle.com/datasets/elementmerc/pentimento-core) |
-| Academic Torrents | Bulk transfer, seeded from the Archive copy | Search `pentimento-core-v1` |
 
 ## Take only what you need
 

@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Pentimento
   text: A steganalysis corpus with its licences attached
-  tagline: 10,000 cover photographs and 341,997 matched stego pairs, every image carrying its own licence and every file its own checksum.
+  tagline: 10,000 cover photographs and 344,357 matched stego pairs, every image carrying its own licence and every file its own checksum.
   actions:
     - theme: brand
       text: Get it

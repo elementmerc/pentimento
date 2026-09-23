@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Covers | 10,000 photographs from Wikimedia Commons |
-| Stego pairs | 341,997 |
+| Stego pairs | 344,357 |
 | Arms | 35 stego, plus 4 clean |
 | Format | WebDataset tar shards |
 | Licence | CC BY 4.0 for the collection; each file's own terms in its record |

@@ -1,84 +1,84 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-label="The Pentimento corpus: 341,997 matched pairs across 35 stego arms and 4 clean arms">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-label="The Pentimento corpus: 344,357 matched pairs across 35 stego arms and 4 clean arms">
 <rect x="0" y="0" width="1200" height="600" fill="#1D1D1F"/>
 <text x="48" y="60" fill="#FFFFFF" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="32" font-weight="600">What is in it</text>
-<text x="48" y="88" fill="#A1A1A6" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="15">341,997 matched pairs across 35 stego arms, plus 4 clean arms that are the other half of every pair.</text>
+<text x="48" y="88" fill="#A1A1A6" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="15">344,357 matched pairs across 35 stego arms, plus 4 clean arms that are the other half of every pair.</text>
 <text x="48" y="116" fill="#86868B" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="10" font-weight="600" letter-spacing="0.1em">FAMILY</text>
 <text x="300" y="116" fill="#86868B" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="10" font-weight="600" letter-spacing="0.1em">PAYLOAD RATE, AND SAMPLES AT EACH</text>
 <line x1="48" y1="156" x2="1152" y2="156" stroke="#2F2F31" stroke-width="1" stroke-linecap="round"/>
 <text x="48" y="145" fill="#FFFFFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" font-weight="600">HUGO</text>
 <text x="198" y="145" fill="#86868B" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11">spatial</text>
-<rect x="300" y="130" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<rect x="300" y="130" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="310" y="145" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.05</text>
-<text x="386" y="145" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="408" y="130" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="386" y="145" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="408" y="130" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="418" y="145" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.1</text>
-<text x="494" y="145" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="516" y="130" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="494" y="145" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="516" y="130" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="526" y="145" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.2</text>
-<text x="602" y="145" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="624" y="130" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="602" y="145" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="624" y="130" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="634" y="145" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.4</text>
-<text x="710" y="145" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
+<text x="710" y="145" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
 <line x1="48" y1="190" x2="1152" y2="190" stroke="#2F2F31" stroke-width="1" stroke-linecap="round"/>
 <text x="48" y="179" fill="#FFFFFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" font-weight="600">WOW</text>
 <text x="198" y="179" fill="#86868B" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11">spatial</text>
-<rect x="300" y="164" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<rect x="300" y="164" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="310" y="179" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.05</text>
-<text x="386" y="179" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="408" y="164" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="386" y="179" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="408" y="164" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="418" y="179" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.1</text>
-<text x="494" y="179" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="516" y="164" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="494" y="179" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="516" y="164" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="526" y="179" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.2</text>
-<text x="602" y="179" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="624" y="164" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="602" y="179" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="624" y="164" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="634" y="179" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.4</text>
-<text x="710" y="179" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
+<text x="710" y="179" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
 <line x1="48" y1="224" x2="1152" y2="224" stroke="#2F2F31" stroke-width="1" stroke-linecap="round"/>
 <text x="48" y="213" fill="#FFFFFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" font-weight="600">S-UNIWARD</text>
 <text x="198" y="213" fill="#86868B" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11">spatial</text>
-<rect x="300" y="198" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<rect x="300" y="198" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="310" y="213" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.05</text>
-<text x="386" y="213" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="408" y="198" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="386" y="213" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="408" y="198" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="418" y="213" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.1</text>
-<text x="494" y="213" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="516" y="198" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="494" y="213" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="516" y="198" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="526" y="213" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.2</text>
-<text x="602" y="213" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="624" y="198" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="602" y="213" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="624" y="198" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="634" y="213" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.4</text>
-<text x="710" y="213" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
+<text x="710" y="213" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
 <line x1="48" y1="258" x2="1152" y2="258" stroke="#2F2F31" stroke-width="1" stroke-linecap="round"/>
 <text x="48" y="247" fill="#FFFFFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" font-weight="600">HILL</text>
 <text x="198" y="247" fill="#86868B" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11">spatial</text>
-<rect x="300" y="232" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<rect x="300" y="232" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="310" y="247" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.05</text>
-<text x="386" y="247" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="408" y="232" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="386" y="247" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="408" y="232" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="418" y="247" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.1</text>
-<text x="494" y="247" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="516" y="232" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="494" y="247" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="516" y="232" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="526" y="247" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.2</text>
-<text x="602" y="247" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="624" y="232" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="602" y="247" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="624" y="232" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="634" y="247" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.4</text>
-<text x="710" y="247" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
+<text x="710" y="247" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
 <line x1="48" y1="292" x2="1152" y2="292" stroke="#2F2F31" stroke-width="1" stroke-linecap="round"/>
 <text x="48" y="281" fill="#FFFFFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" font-weight="600">MiPOD</text>
 <text x="198" y="281" fill="#86868B" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11">spatial</text>
-<rect x="300" y="266" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<rect x="300" y="266" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="310" y="281" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.05</text>
-<text x="386" y="281" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="408" y="266" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="386" y="281" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="408" y="266" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="418" y="281" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.1</text>
-<text x="494" y="281" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="516" y="266" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="494" y="281" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="516" y="266" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="526" y="281" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.2</text>
-<text x="602" y="281" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
-<rect x="624" y="266" width="96" height="22" fill="#409CFF" rx="3" opacity="0.09"/>
+<text x="602" y="281" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
+<rect x="624" y="266" width="96" height="22" fill="#409CFF" rx="3" opacity="0.14"/>
 <text x="634" y="281" fill="#409CFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="600">0.4</text>
-<text x="710" y="281" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">9,882</text>
+<text x="710" y="281" fill="#86868B" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="11" text-anchor="end">10,000</text>
 <line x1="48" y1="326" x2="1152" y2="326" stroke="#2F2F31" stroke-width="1" stroke-linecap="round"/>
 <text x="48" y="315" fill="#FFFFFF" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" font-weight="600">J-UNIWARD</text>
 <text x="198" y="315" fill="#86868B" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11">JPEG DCT</text>
@@ -142,7 +142,7 @@
 <line x1="48" y1="488" x2="1152" y2="488" stroke="#3A3A3C" stroke-width="1" stroke-linecap="round"/>
 <text x="48" y="530" fill="#409CFF" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="30" font-weight="600">10,000</text>
 <text x="48" y="554" fill="#A1A1A6" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12">cover photographs</text>
-<text x="338" y="530" fill="#409CFF" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="30" font-weight="600">341,997</text>
+<text x="338" y="530" fill="#409CFF" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="30" font-weight="600">344,357</text>
 <text x="338" y="554" fill="#A1A1A6" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12">matched stego pairs</text>
 <text x="628" y="530" fill="#409CFF" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace" font-size="30" font-weight="600">39</text>
 <text x="628" y="554" fill="#A1A1A6" font-family="'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12">arms in total</text>

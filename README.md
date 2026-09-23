@@ -7,7 +7,7 @@
 
 **A steganalysis corpus you are allowed to republish.**
 
-10,000 cover photographs and 341,997 matched stego pairs. Every image carries
+10,000 cover photographs and 344,357 matched stego pairs. Every image carries
 its own licence, its own credit line and its own checksum, so a result measured
 on it can be traced back to the photograph it came from.
 
@@ -39,7 +39,7 @@ project of its own.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/media/01-what-is-in-it-dark.svg">
-  <img alt="341,997 matched pairs across 35 stego arms and 4 clean arms" src="docs/media/01-what-is-in-it.svg">
+  <img alt="344,357 matched pairs across 35 stego arms and 4 clean arms" src="docs/media/01-what-is-in-it.svg">
 </picture>
 
 Seven adaptive schemes across four payload rates, the two end-user tools people
@@ -106,7 +106,7 @@ that change what a result means are listed in full under
 
 This is the corpus: its documentation, its release metadata and the record of
 how it was made. The images themselves are published to the Internet Archive,
-HuggingFace, Kaggle and Academic Torrents, because 48 GB does not belong in git.
+HuggingFace and Kaggle, because 48 GB does not belong in git.
 
 It is built by [stegobench](https://github.com/elementmerc/stegobench), which is
 the harness. The figures above are drawn by `tools/make_figures.py` from the
