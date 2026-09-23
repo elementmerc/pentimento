@@ -9,7 +9,7 @@ Covers and arms are packaged separately, so you can take one without the other.
 |---|---|---|
 | Internet Archive | The canonical copy. No account, no approval, permanent | [pentimento-core-v1](https://archive.org/details/pentimento-core-v1) |
 | HuggingFace | Loading straight into a training pipeline | [the-malware-files/pentimento-core](https://huggingface.co/datasets/the-malware-files/pentimento-core) |
-| Kaggle | Notebooks | [elementmerc/pentimento-core](https://www.kaggle.com/datasets/elementmerc/pentimento-core) |
+| Kaggle | Notebooks. Covers only, and the shards arrive unpacked (see below) | [elementmerc/pentimento-core](https://www.kaggle.com/datasets/elementmerc/pentimento-core) |
 
 ## Take only what you need
 
@@ -107,3 +107,21 @@ sha256sum -c SHA256SUMS-covers
 
 Verify before use. A shard that does not match is a shard that changed in
 transit, and it will read as a smaller corpus rather than as an error.
+
+### On Kaggle, use the records instead
+
+Kaggle extracts archives when they are uploaded and gives no way to refuse it,
+so there `pentimento-core-00000.tar` is a folder called
+`pentimento-core-00000/` holding the same members under the same names. The
+bytes are identical. The container is gone, and `SHA256SUMS-covers` names
+containers, so on that copy the command above reports every shard as missing.
+
+Check it against each record's own checksum, which ships beside every image:
+
+```bash
+python load_pentimento.py --verify pentimento-core-00000/
+```
+
+That is the finer check of the two, because it names the image that is wrong
+rather than the shard holding it. `load_pentimento.py` reads a folder and a
+tar the same way, so nothing else about the guide changes.
