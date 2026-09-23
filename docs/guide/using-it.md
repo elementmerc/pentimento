@@ -20,6 +20,14 @@ python3 load_pentimento.py pentimento-core-wow-0200-00000.tar
 
 For training, any WebDataset loader reads the shards unchanged:
 
+::: warning Not on the Kaggle copy
+WebDataset needs real tar shards, and Kaggle serves them unpacked, so the
+pattern below matches nothing there. Either use `samples()` from
+`load_pentimento.py`, which reads a folder and a tar alike, or re-pack a
+folder first with `tar cf pentimento-core-00000.tar -C pentimento-core-00000 .`
+:::
+
+
 ```python
 import webdataset as wds
 

@@ -124,4 +124,6 @@ python load_pentimento.py --verify pentimento-core-00000/
 
 That is the finer check of the two, because it names the image that is wrong
 rather than the shard holding it. `load_pentimento.py` reads a folder and a
-tar the same way, so nothing else about the guide changes.
+tar alike, so the reading examples elsewhere in this guide work either way.
+The one thing that does not is WebDataset, which needs real shards; see the
+note beside it on the [using it](./using-it) page.
