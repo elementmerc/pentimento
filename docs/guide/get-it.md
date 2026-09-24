@@ -32,11 +32,15 @@ its clean half, check them, read a sample. About 130 MB.
 BASE=https://archive.org/download/pentimento-core-v1
 
 # The paperwork first: it is small and it tells you what the rest is.
-curl -sO $BASE/README.md -O $BASE/SHA256SUMS-covers -O $BASE/SHA256SUMS-arms -O $BASE/load_pentimento.py
+# -L matters: the Archive answers with a 302 to whichever storage node holds
+# the item, and curl without it writes an empty file and reports success.
+# -f matters for the same reason, the other way round: without it a 404 is
+# saved as a file containing the error page.
+curl -fLsO $BASE/README.md -O $BASE/SHA256SUMS-covers -O $BASE/SHA256SUMS-arms -O $BASE/load_pentimento.py
 
 # One arm, and the clean half it is measured against.
-curl -O $BASE/pentimento-core-wow-0200-00000.tar
-curl -O $BASE/pentimento-core-clean-grey-00000.tar
+curl -fLO $BASE/pentimento-core-wow-0200-00000.tar
+curl -fLO $BASE/pentimento-core-clean-grey-00000.tar
 
 # Check what arrived. A shard that fails here changed in transit.
 grep -E 'wow-0200-00000|clean-grey-00000' SHA256SUMS-arms | sha256sum -c
