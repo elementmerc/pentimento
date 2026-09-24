@@ -101,7 +101,8 @@ Shards stream without unpacking and every major dataset loader reads them.
 | `pairing` | `container-verified`, or `no-clean-half` on the clean arms |
 | `licence_join` | How this file's licence was traced back to its cover |
 
-Every one of the 39 arms carries those nine. Nothing else is universal,
+Every one of the 39 arms carries those nine, and `domain` below is a tenth
+that is always present but not always filled in. Nothing else is universal,
 and a loader that assumes otherwise falls over on the first arm it has not seen
 before. Reach for anything in the next table with `record.get(...)` rather than
 `record[...]`.
@@ -111,7 +112,7 @@ before. Reach for anything in the next table with `record.get(...)` rather than
 | `clean`, `clean_sha256`, `stego`, `stego_sha256` | The 35 stego arms | The 4 clean arms, which are one half rather than a pair |
 | `file`, `role` | The 4 clean arms | The 35 stego arms |
 | `coding` | The 28 adaptive arms | The 6 tool arms, the appended-data arm, the 4 clean arms |
-| `domain` | All 39, but `null` on `clean-jpeg-tools` and `clean-outguess` | Nobody, though two carry it empty |
+| `domain` | All 39, though it is `null` on `clean-jpeg-tools` and `clean-outguess` | None, but test for `null` rather than for absence |
 | `samples_changed`, `change_rate` | The 20 spatial adaptive arms | Everything else, the DCT arms included |
 | `coefficients_changed` | The 8 DCT adaptive arms | Everything else |
 | `jpeg_quality`, `payload_bytes`, `detail` | The 6 tool arms and the appended-data arm | Everything else. The DCT arms are quality 95 too, they just don't record it |

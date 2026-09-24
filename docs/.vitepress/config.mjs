@@ -77,7 +77,6 @@ export default {
         text: 'Project',
         items: [
           { text: 'Licence (CC BY 4.0)', link: '/guide/licence' },
-          { text: 'Stegobench, the harness that built it', link: 'https://github.com/elementmerc/stegobench' },
         ],
       },
     ],

@@ -5,9 +5,17 @@ rebuild this one or make a different one.
 
 ## What you need
 
-[Stegobench](https://github.com/elementmerc/stegobench), the harness the corpus
-was built with. It fetches the covers, builds the arms, packs the shards and
-derives the metadata.
+Stegobench, the harness the corpus was built with. It fetches the covers,
+builds the arms, packs the shards and derives the metadata.
+
+::: warning Stegobench is not public yet
+The harness has not been released, so the repository link is not open to
+readers today and everything below describes how a rebuild works rather than
+something you can run right now. The corpus itself is fully published and
+needs none of it. If you want to rebuild rather than download, say so on the
+[issue tracker](https://github.com/elementmerc/pentimento/issues) and it will
+help make the case for bringing the release forward.
+:::
 
 ## What determinism means here
 

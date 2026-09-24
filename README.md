@@ -108,13 +108,13 @@ that change what a result means are listed in full under
 
 ## About this repository
 
-The corpus is made up of documentation, its release metadata and the record of
-how it was made. The images themselves are published to the Internet Archive,
-HuggingFace and Kaggle, because 48 GB does not belong in git.
+This repository is the corpus's documentation, its release metadata and the
+record of how it was made. The images themselves are published to the Internet
+Archive, HuggingFace and Kaggle, because 48 GB does not belong in git.
 
-It is built by [Stegobench](https://github.com/elementmerc/stegobench), which is
-the harness. The figures above are drawn by `tools/make_figures.py` from the
-corpus's own measured numbers; `--check` fails if they have drifted.
+The corpus is built by Stegobench, the harness, which is not yet public. The
+figures above are drawn by `tools/make_figures.py` from the corpus's own
+measured numbers; `--check` fails if they have drifted.
 
 ## Licence
 

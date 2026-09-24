@@ -59,7 +59,9 @@ the covers you actually touched. Every sample record names its cover under
 `source_png`; collect those and join on the `file` column:
 
 ```python
-import csv, json
+import csv
+
+from load_pentimento import samples
 
 used = {r["source_png"] for _, _, r in samples("pentimento-core-wow-0200-00000.tar")}
 
@@ -75,7 +77,7 @@ with open("ATTRIBUTION.csv", newline="") as fh:
 Format](https://citation-file-format.github.io/), which is plain YAML, so you
 can read it as it stands or hand it to a reference manager that speaks CFF.
 
-None of the four places the corpus is published renders it into a formatted
+None of the three places the corpus is published renders it into a formatted
 citation for you, so copy the fields out yourself.
 
 ## If something looks wrong

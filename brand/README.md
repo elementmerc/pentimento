@@ -130,7 +130,7 @@ The sources are SVG. PNG exports, when a host demands one:
 for s in 16 32 48 180 192 512; do
   rsvg-convert -w $s -h $s docs/brand/logo/mark.svg -o mark-$s.png
 done
-rsvg-convert -w 1280 -h 640 docs/brand/social/github-social-1280x640.svg \
+rsvg-convert -w 1280 -h 640 brand/social/github-social-1280x640.svg \
   -o github-social-1280x640.png
 ```
 

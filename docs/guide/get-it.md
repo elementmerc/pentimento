@@ -82,7 +82,9 @@ You now have the same photograph twice: one carrying a hidden payload, one not.
 They are 512x512 greyscale PNGs, and **they will look identical to you**, at
 any zoom. That is the whole point of the field: if you could see the difference
 there would be nothing to detect. The two files differ in about 3% of pixels,
-each by one in the last bit of its brightness value, which no eye resolves.
+each by one step in brightness, which no eye resolves. (Half of those steps
+are a flip of the last bit; the other half cross a bit boundary, where 127
+becomes 128 and eight bits change to move by one.)
 
 Finding that difference without being told which is which is the problem this
 corpus is for.
@@ -100,12 +102,21 @@ ia download pentimento-core-v1 --checksum
 
 On HuggingFace:
 
+::: warning The arms are still uploading
+The covers are all there. The 35 stego arms and 4 clean arms are going up one
+at a time, so an arm you ask for may not exist yet, and `hf download` reports
+no error when a pattern matches nothing: it exits 0 having fetched nothing.
+Check the repository's file list first, or take the arms from the Internet
+Archive, which is complete.
+:::
+
 ```bash
-pip install huggingface_hub
+pip install huggingface_hub   # provides `hf`; older installs have `huggingface-cli`
 hf download the-malware-files/pentimento-core --repo-type dataset --local-dir pentimento
 ```
 
-That pulls all 48 GB. To take one arm and the clean half it is measured
+That pulls everything currently in the repository, which is the whole 48 GB
+once the arms finish. To take one arm and the clean half it is measured
 against, the same way the Archive example does:
 
 ```bash
@@ -113,6 +124,9 @@ hf download the-malware-files/pentimento-core --repo-type dataset \
   --local-dir pentimento \
   --include 'pentimento-core-wow-0200-*.tar' 'pentimento-core-clean-grey-*.tar'
 ```
+
+Count what arrived. Two arms of twenty shards each is forty files; fewer means
+that arm is not up yet.
 
 ## Smaller tiers
 
