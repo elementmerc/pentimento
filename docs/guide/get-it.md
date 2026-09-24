@@ -129,6 +129,10 @@ Core without the two overlapping in a way that flatters your results.
 The nesting is exact rather than approximate: Lite's cover shard is the same
 file, byte for byte, as Core's first cover shard.
 
+**Core is the tier published on the Internet Archive today.** Nano and Lite are
+built and packed; they are not up yet, and this page will link them when they
+are.
+
 ## Check what you downloaded
 
 Each part ships its own checksum file, `SHA256SUMS-covers` for the cover

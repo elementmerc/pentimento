@@ -55,7 +55,9 @@ one, which matters when you compare across arms.
 
 Three nested tiers: **Nano** (200 covers, 1.0 GB), **Lite** (1,000, 4.8 GB) and
 **Core** (10,000, 48 GB). A tier is the first *n* covers of one fixed ordering,
-so a smaller tier is exactly a prefix of a larger one, byte for byte.
+so a smaller tier is exactly a prefix of a larger one, byte for byte. Core is
+the tier published on the Internet Archive today; Nano and Lite are built and
+packed and are not up yet.
 
 ## Pairs that differ only in the payload
 
