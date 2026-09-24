@@ -51,9 +51,8 @@ so the corpus ships the list already made:
 | `ATTRIBUTION.md` | Every credit line, grouped by licence. Paste the section you need |
 | `ATTRIBUTION.csv` | The same lines with `file`, `licence`, `licence_url`, `artist`, `title`, `source` and `attribution` as columns, to join against |
 
-Both ship beside the covers, on every host. On Kaggle they sit at the root of
-the dataset alongside the unpacked shard folders, unaffected by the unpacking
-described in [Get it](get-it).
+Both ship beside the covers, on every host, at the root of the dataset
+alongside the shards.
 
 **If you used one arm rather than the whole corpus**, you owe credit only for
 the covers you actually touched. Every sample record names its cover under

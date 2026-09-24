@@ -30,11 +30,12 @@ First public release of the Pentimento corpus.
   account and no approval.
 - Published to HuggingFace as `the-malware-files/pentimento-core`, with a
   config declared per arm so a single arm loads by name.
-- Published to Kaggle as `elementmerc/pentimento-core`, covers only: Kaggle
-  extracts archives on upload and offers no way to refuse, and unpacking the
-  full corpus would produce 784,952 loose files.
-- A loader, `load_pentimento.py`, that reads a tar shard or an unpacked folder
-  with nothing to install, and verifies each record against its own digest.
+- Published to Kaggle as `elementmerc/pentimento-core`, covers only, because
+  the full corpus is 48 GB and the arms are better served by the hosts that
+  take them whole. The shards are named `.tar.bin` there, since Kaggle unpacks
+  anything ending in `.tar`; the bytes are identical to every other mirror.
+- A loader, `load_pentimento.py`, that reads a tar shard or a directory with
+  nothing to install, and verifies each record against its own digest.
 
 ### Documentation
 

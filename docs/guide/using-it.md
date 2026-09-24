@@ -20,11 +20,11 @@ python3 load_pentimento.py pentimento-core-wow-0200-00000.tar
 
 For training, any WebDataset loader reads the shards unchanged:
 
-::: warning Not on the Kaggle copy
-WebDataset needs real tar shards, and Kaggle serves them unpacked, so the
-pattern below matches nothing there. Either use `samples()` from
-`load_pentimento.py`, which reads a folder and a tar alike, or re-pack a
-folder first with `tar cf pentimento-core-00000.tar -C pentimento-core-00000 .`
+::: tip On the Kaggle copy, add the suffix
+The Kaggle shards are named `pentimento-core-00000.tar.bin`, because Kaggle
+unpacks anything ending in `.tar`. They are ordinary tars, so WebDataset reads
+them; the brace pattern just needs the longer name:
+`pentimento-core-{00000..00009}.tar.bin`
 :::
 
 
