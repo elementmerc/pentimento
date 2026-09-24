@@ -185,7 +185,14 @@ jobs:
           rc=0
           for path in "" "/guide/get-it" "/guide/using-it" "/guide/licence" "/mark.svg"; do
             url="$base$path"
-            code="$(curl -sS -o /dev/null -w '%{http_code}' --retry 3 --retry-delay 5 "$url" || echo 000)"
+            # -L, and the reason is on the record twice over. Pages answers the
+            # bare site URL with a 301 to the trailing slash, so without it the
+            # first entry in this list fails on a site that is perfectly fine.
+            # The guide had the same bug against the Archive's redirect, where
+            # it silently wrote empty files; this check merely cried wolf. Both
+            # were written by someone who forgot that a redirect is not an
+            # error and not a success.
+            code="$(curl -sSL -o /dev/null -w '%{http_code}' --retry 3 --retry-delay 5 "$url" || echo 000)"
             if [ "$code" = "200" ]; then
               echo "  ok   $code  $url"
             else
