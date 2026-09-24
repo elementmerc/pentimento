@@ -22,17 +22,27 @@ enough that the back one shows through the overlap.** That overlap is the mark.
 | Muted dark | `#6E6E73` | Body text that is not a heading |
 | Line | `#D2D2D7` | Rules, borders, dividers |
 
-Contrast, measured, because a light palette is where this goes wrong:
+Contrast, measured, because a light palette is where this goes wrong. **Ground
+and Paper are different grounds and they give different answers**, so both are
+listed: an earlier version of this table named Ground and carried Paper's
+numbers, which made Blue look like it passed on the page it is actually used
+on.
 
-| Pair | Ratio | Verdict |
-|---|---|---|
-| Ink on Ground | 16.8:1 | body text, any size |
-| Blue on Ground | 4.6:1 | body text, links |
-| Muted on Ground | 3.6:1 | **captions at 18px and above only** |
-| Muted dark on Ground | 5.3:1 | body text |
-| Paper on Ink | 16.8:1 | reversed |
+| Pair | on Ground `#F5F5F7` | on Paper `#FFFFFF` | Verdict |
+|---|---|---|---|
+| Ink | 15.5:1 | 16.8:1 | body text, any size |
+| Blue | 4.31:1 | 4.70:1 | **fails AA on Ground**, see below |
+| Muted | 3.33:1 | 3.62:1 | 18px and above only, and only on Paper |
+| Muted dark | 4.66:1 | 5.07:1 | body text |
 
-Never put Blue on Ink as body text (3.6:1). On dark grounds use Paper for text
+Reversed, Paper on Ink is 16.8:1.
+
+**Blue at `#0071E3` is below the 4.5:1 floor on Ground**, which is the default
+page. Use it for the mark, for graphic accents and for large text. For links
+and body-size text on Ground, use the darker `#0067CF`, which measures 5.02:1
+and is what the documentation site ships.
+
+Never put Blue on Ink as body text (3.58:1). On dark grounds use Paper for text
 and keep Blue for the mark and for graphic accents.
 
 ## Typography
