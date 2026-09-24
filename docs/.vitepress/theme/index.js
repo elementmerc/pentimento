@@ -1,11 +1,9 @@
 // Author:  Daniel Iwugo
 // Comment: Christ is King
-// Pentimento documentation theme.
-//
-// VitePress ships an indigo/purple brand colour. The project's blue is #0071E3,
-// and a site whose accent does not match its own mark reads as a template
-// somebody forgot to fill in.
+// The default VitePress theme plus this project's palette. Nothing structural is overridden:
+// a docs site that fights its own theme is a maintenance cost with no reader-facing benefit.
+// Same arrangement as the sibling project's site, so the two read as siblings.
 import DefaultTheme from 'vitepress/theme'
-import './brand.css'
+import './palette.css'
 
 export default DefaultTheme

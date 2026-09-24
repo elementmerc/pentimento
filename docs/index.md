@@ -5,6 +5,12 @@ hero:
   name: Pentimento
   text: A steganalysis corpus with its licences attached
   tagline: 10,000 cover photographs and 344,357 matched stego pairs, every image carrying its own licence and every file its own checksum.
+  # The kit: mark.svg is primary and is for light grounds; mark-reversed.svg is for Ink and
+  # other dark grounds. One file for both left the Ink square invisible in dark mode.
+  image:
+    light: /mark.svg
+    dark: /mark-reversed.svg
+    alt: Pentimento
   actions:
     - theme: brand
       text: Get it

@@ -1,4 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" role="img" aria-label="Pentimento">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Pentimento">
+  <!--
+    The kit ships two marks because the front square changes with the ground: Ink on light,
+    Paper on dark. A favicon has no way to know which it will be asked for, and browser chrome
+    is light in a light theme and dark in a dark one, so a fixed mark disappears in one of them.
+    This carries both and lets the browser choose, which is the same decision the site's
+    navigation and hero make through `light`/`dark` variants.
+
+    The back square is Blue in both, because the kit forbids recolouring it.
+  -->
+  <style>
+    .front { fill: #1D1D1F; }
+    @media (prefers-color-scheme: dark) {
+      .front { fill: #FFFFFF; }
+    }
+  </style>
   <rect x="6" y="14" width="40" height="40" rx="7" fill="#0071E3"/>
-  <rect x="18" y="6" width="40" height="40" rx="7" fill="#1D1D1F" opacity="0.92"/>
+  <rect x="18" y="6" width="40" height="40" rx="7" class="front" opacity="0.92"/>
 </svg>

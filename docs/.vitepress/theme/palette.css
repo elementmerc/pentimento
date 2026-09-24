@@ -1,0 +1,231 @@
+/*
+ * Pentimento documentation palette.
+ *
+ * EVERY VALUE HERE IS FROM `brand/README.md`. None of it was picked here, and none of it should
+ * be changed here: the identity kit is the source of truth, the operator edits it on a design
+ * board, and edits are folded into `brand/` by hand. A colour invented in this file is drift
+ * that nothing would catch, because a page that looks fine is a page nobody checks.
+ *
+ *   Ink        #1D1D1F   the surface square, body text, dark ground
+ *   Blue       #0071E3   the layer underneath, links, accents
+ *   Ground     #F5F5F7   light ground, the default page
+ *   Paper      #FFFFFF   cards, the reversed mark
+ *   Muted      #86868B   captions, secondary text on light
+ *   Muted dark #6E6E73   body text that is not a heading
+ *   Line       #D2D2D7   rules, borders, dividers
+ *
+ * The kit measures its own contrast and states two rules this file obeys:
+ * Muted is for captions at 18px and above ONLY (3.6:1), and Blue is NEVER body text on Ink
+ * (3.6:1), so dark mode uses Paper for text and lifts the blue for links.
+ */
+
+:root {
+  --pm-ink:        #1D1D1F;
+  --pm-blue:       #0071E3;
+  --pm-ground:     #F5F5F7;
+  --pm-paper:      #FFFFFF;
+  --pm-muted:      #86868B;
+  --pm-muted-dark: #6E6E73;
+  --pm-line:       #D2D2D7;
+
+  /* Derived, and only by darkening Blue for hover and active states. The kit does not name
+     these, so they stay a pure function of Blue rather than new colours. */
+  --pm-blue-dark:   #0062C4;
+  --pm-blue-darker: #0052A5;
+
+  /* VitePress brand hooks. */
+  --vp-c-brand-1: var(--pm-blue);
+  --vp-c-brand-2: var(--pm-blue-dark);
+  --vp-c-brand-3: var(--pm-blue-darker);
+  --vp-c-brand-soft: rgba(0, 113, 227, 0.12);
+
+  --vp-c-bg: var(--pm-ground);
+  --vp-c-bg-alt: var(--pm-paper);
+  --vp-c-bg-soft: var(--pm-paper);
+
+  --vp-c-divider: var(--pm-line);
+  --vp-c-border: var(--pm-line);
+
+  --vp-c-text-1: var(--pm-ink);
+  --vp-c-text-2: var(--pm-muted-dark);
+  --vp-c-text-3: var(--pm-muted);
+
+  --vp-button-brand-bg: var(--pm-blue);
+  --vp-button-brand-hover-bg: var(--pm-blue-dark);
+  --vp-button-brand-active-bg: var(--pm-blue-darker);
+  --vp-button-brand-border: transparent;
+
+  /* The product name carries the brand blue so it reads as the name rather than as the first
+     line of the sentence under it. */
+  --vp-home-hero-name-color: var(--pm-blue);
+
+  /* THE GLOW IS A RECORDED EXCEPTION TO THE KIT, NOT AN OVERSIGHT.
+     `brand/README.md` says "Do not add a gradient, a shadow or a glow", and the operator asked
+     for this one back on 2026-09-24 after seeing it both ways. It is written down in the kit
+     under "Recorded exceptions" so the next person does not remove it as a mistake.
+     It is the mark's own two colours in the mark's own order, blurred well past any edge, so
+     nothing reads as a shape competing with the two squares. */
+  --vp-home-hero-image-background-image:
+    linear-gradient(-45deg, rgba(0, 113, 227, 0.50) 45%, rgba(29, 29, 31, 0.35) 55%);
+  --vp-home-hero-image-filter: blur(64px);
+
+  /* 320px is VitePress's own hero box, which is what the sibling project's site renders at:
+     its mark declares `width="512"` and simply fills the default. This one declares 64px, so
+     it needs the size stated rather than inherited. Same rendered result, reached differently. */
+  --pm-hero-image-size: 320px;
+}
+
+.dark {
+  /* Blue on Ink is 3.6:1, which the kit forbids for body text. Links are lifted out of the
+     brand blue into the same hue at a luminance that carries on a dark ground; body text is
+     Paper, as the kit says it must be. */
+  --vp-c-brand-1: #6CB6FF;
+  --vp-c-brand-2: #8AC5FF;
+  --vp-c-brand-3: #A8D4FF;
+  --vp-c-brand-soft: rgba(108, 182, 255, 0.16);
+
+  --vp-c-bg: var(--pm-ink);
+  --vp-c-bg-alt: #151517;
+  --vp-c-bg-soft: #232326;
+
+  --vp-c-divider: #333336;
+  --vp-c-border: #333336;
+
+  --vp-c-text-1: var(--pm-paper);
+  --vp-c-text-2: #B0B0B5;
+  --vp-c-text-3: var(--pm-muted);
+
+  /* The kit's Do-not list says plainly: do not put Blue text on Ink. So the name keeps the
+     blue IDENTITY on a dark ground without keeping the blue VALUE, using the same lifted hue
+     the links use. */
+  --vp-home-hero-name-color: #6CB6FF;
+
+  --vp-button-brand-bg: var(--pm-blue);
+  --vp-button-brand-hover-bg: #1A82E8;
+  --vp-button-brand-active-bg: var(--pm-blue-dark);
+}
+
+/*
+ * Typography, also from the kit: Fraunces for display, Hanken Grotesk for body, IBM Plex Mono
+ * for anything a reader compares character by character. That last one is not a preference
+ * here: this corpus asks people to read checksums, licence codes and arm names like
+ * `juniward-0400`, and a proportional font makes those harder to compare than they need to be.
+ *
+ * Every family degrades to a system stack, so the site is readable before a webfont arrives and
+ * readable if one never does.
+ *
+ * The families are FETCHED by link tags in `config.mjs`, not by an `@import` here. A CSS import
+ * blocks the stylesheet that contains it while it resolves, and it has to be the first statement
+ * in the file, which would put a font request above the palette this file exists for.
+ */
+
+:root {
+  --vp-font-family-base:
+    'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --vp-font-family-mono:
+    'IBM Plex Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+  --vp-layout-max-width: 1440px;
+  --vp-code-font-size: 0.86em;
+}
+
+/* Display face on the things that are titles rather than prose. */
+.VPHero .name,
+.VPHero .text,
+.vp-doc h1,
+.vp-doc h2 {
+  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;   /* the kit's wordmark tracking */
+}
+
+.VPNavBarTitle .title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+}
+
+/*
+ * THE HERO IS A NAME AND A SUBTITLE, NOT TWO HEADLINES.
+ *
+ * VitePress sets both at the same size, so the sentence under the name competed with it and the
+ * eye had nothing to land on first. The ratio here is the kit's own type scale rather than a
+ * number chosen by eye: Display 52/1.08 for the name, Title 30/1.24 for the line beneath it.
+ * The wordmark is sentence case and never uppercase, which is the kit's rule and VitePress's
+ * default anyway.
+ */
+.VPHero .name {
+  font-size: 52px;
+  line-height: 1.08;
+}
+
+.VPHero .text {
+  font-size: 30px;
+  line-height: 1.24;
+  color: var(--vp-c-text-1);
+}
+
+@media (min-width: 960px) {
+  .VPHero .name { font-size: 64px; }
+  .VPHero .text { font-size: 34px; }
+}
+
+/*
+ * The mark in the navigation bar, at the size the sibling project's site uses. The kit's
+ * minimum for this mark is 16px, below which the 8% opacity difference in the overlap stops
+ * resolving and `mark-mono-*` should be used instead; this is comfortably above it.
+ */
+.VPNavBarTitle .logo {
+  height: 38px;
+  width: 38px;
+  /* Clear space is twice the front square's corner radius. Nothing enters that margin. */
+  margin-right: 11px;
+}
+
+/*
+ * The hero mark.
+ *
+ * WIDTH AND HEIGHT, NOT MAX-WIDTH. The kit's `mark.svg` declares `width="64" height="64"`, so
+ * its intrinsic size is 64px, and `max-width` only ever shrinks an image: it cannot scale one
+ * up. The mark therefore rendered at 64px however large the box around it was, which is why it
+ * read as a bullet point beside a 64px display line. The sibling project's mark declares 512px
+ * and fills its box on intrinsic size alone, which is why it needs no rule like this.
+ *
+ * Sizing here rather than by editing the file keeps `docs/public/` byte-identical to `brand/`,
+ * so the copy in the site cannot drift from the kit.
+ */
+.VPHero .image-container,
+.VPHero .image-bg {
+  width: var(--pm-hero-image-size);
+  height: var(--pm-hero-image-size);
+}
+
+.VPHero .image-src {
+  width: var(--pm-hero-image-size);
+  height: var(--pm-hero-image-size);
+  max-width: none;
+  max-height: none;
+}
+
+@media (max-width: 959px) {
+  .VPHero .image-container,
+  .VPHero .image-bg,
+  .VPHero .image-src { width: 280px; height: 280px; }
+}
+
+.vp-doc {
+  /* A comfortable line length. The default runs wide enough that a long paragraph loses the
+     reader's place on the way back to the left margin. */
+  --vp-content-max-width: 760px;
+}
+
+.vp-doc p,
+.vp-doc li {
+  line-height: 1.75;
+}
+
+/* Counts, digests and arm names sit inside prose constantly on this site, and at the default
+   size they read smaller than the text around them. */
+.vp-doc :not(pre) > code {
+  font-size: 0.88em;
+}
