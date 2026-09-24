@@ -10,8 +10,10 @@ THIS FILE IS THE GENERATOR, NOT A SKETCH
 Every figure is built by a function from the arrays in FIGURES below, so the
 numbers in the drawing are the measured numbers and changing one changes the
 picture. The last set of figures on this project was hand-drawn, and shipped a
-README banner whose pairs count and arm count were both wrong for weeks,
-because nothing derived them and nothing read them.
+README banner whose pairs count was wrong from 2026-09-22 to 2026-09-24,
+because nothing derived it and nothing read it. Two days is what the history
+can evidence; the kit was untracked before that, so anything longer would be a
+claim this project could not support about itself.
 
 No figures are quoted in this paragraph on purpose. It used to name the stale
 values, and a maintainer opening this file to check a number met a flat
@@ -55,6 +57,7 @@ COVERS = 10_000
 PAIRS = 344_357
 STEGO_ARMS = 35
 CLEAN_ARMS = 4
+COVER_PX = 512
 
 #: family, label, rates, samples per arm, domain
 ARMS = [
@@ -380,6 +383,15 @@ CARD_LABELS = {
 }
 
 
+#: Every number a card may state without a label naming what it counts. A
+#: figure on a card that is not here is either stale or newly invented, and
+#: both are reported the same way, because the card cannot say which.
+KNOWN_FIGURES = {
+    COVERS, PAIRS, STEGO_ARMS, CLEAN_ARMS, STEGO_ARMS + CLEAN_ARMS,
+    ATTRIBUTION_REQUIRED, COVER_PX,
+}
+
+
 def stale_renders(brand: pathlib.Path) -> list[str]:
     """PNGs whose source SVG has changed since they were rendered.
 
@@ -394,7 +406,7 @@ def stale_renders(brand: pathlib.Path) -> list[str]:
     needs no fonts on a CI runner and gives the same answer every time.
     """
     problems = []
-    for png in sorted(brand.glob("*.png")):
+    for png in sorted(brand.rglob("*.png")):
         source = png.with_suffix(".svg")
         sidecar = png.with_suffix(".svg.sha256")
         if not source.is_file():
@@ -438,7 +450,7 @@ def brand_figure_drift(brand: pathlib.Path) -> list[str]:
     pattern = re.compile(
         r"([\d,]+)\s*(" + "|".join(re.escape(l) for l in labels) + r")\b")
 
-    for svg in sorted(brand.glob("*.svg")):
+    for svg in sorted(brand.rglob("*.svg")):
         body = re.sub(r"<!--.*?-->", "", svg.read_text(encoding="utf-8"),
                       flags=re.DOTALL)
 
@@ -481,10 +493,16 @@ def brand_figure_drift(brand: pathlib.Path) -> list[str]:
                     f"{svg.name}: says {number} {label}, the corpus has "
                     f"{want:,}")
 
-        # A separated number beside no label at all is still a claim about the
-        # corpus; SVG coordinates never carry a thousands separator.
-        known = {f"{v():,}" for v in CARD_LABELS.values()}
-        for figure in set(re.findall(r"\d{1,3}(?:,\d{3})+",
+        # A number beside no label at all is still a claim about the corpus.
+        #
+        # This swept only numbers carrying a thousands separator, on the
+        # reasoning that SVG coordinates never do. Tags are stripped first, so
+        # coordinates are already gone and the separator was buying nothing;
+        # what it cost was every figure below a thousand. A card reading "77
+        # stego arms" passed, which is precisely the arm count this project's
+        # own history records getting wrong.
+        known = {str(v) for v in KNOWN_FIGURES} | {f"{v:,}" for v in KNOWN_FIGURES}
+        for figure in set(re.findall(r"\b\d[\d,]*\b",
                                      re.sub(r"<[^>]+>", " ", body))):
             if figure not in known:
                 problems.append(f"{svg.name}: {figure} matches no known figure")
@@ -494,14 +512,30 @@ def brand_figure_drift(brand: pathlib.Path) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--out", default="docs/media")
-    ap.add_argument("--brand", default="brand/social",
-                    help="identity-kit cards, which quote figures by hand")
+    # The WHOLE kit, not `brand/social`. The workflow triggers on `brand/**`,
+    # so the path filter implied a coverage the check did not have: a figure
+    # typed into a lockup, or a raster dropped in `brand/icon`, started a run
+    # that then read neither.
+    ap.add_argument("--brand", default="brand",
+                    help="identity-kit assets, which quote figures by hand")
     ap.add_argument("--check", action="store_true",
                     help="fail if any file would change, rather than writing")
     args = ap.parse_args(argv)
 
     out = pathlib.Path(args.out)
-    out.mkdir(parents=True, exist_ok=True)
+    if args.check:
+        # A CHECK WRITES NOTHING, INCLUDING DIRECTORIES. This used to mkdir
+        # unconditionally, so `--check` run from `/tmp` left a `/tmp/docs/media`
+        # behind and then reported all six figures as out of date, which sends
+        # a reader to re-run the generator when the fault is the directory they
+        # are standing in.
+        if not out.is_dir():
+            print(f"the figures were NOT checked: {out} does not exist. Run "
+                  f"this from the repository root, or pass --out.",
+                  file=sys.stderr)
+            return 1
+    else:
+        out.mkdir(parents=True, exist_ok=True)
     changed = []
     for name, fn in FIGURES:
         for suffix, palette in (("", LIGHT), ("-dark", DARK)):
@@ -532,6 +566,15 @@ def main(argv: list[str] | None = None) -> int:
                   f"exist. Run this from the repository root, or pass "
                   f"--brand.", file=sys.stderr)
             return 1
+        # An EMPTY directory is the same silence wearing a different hat: the
+        # guard above tested existence only, so a `brand/social` whose cards had
+        # been renamed, moved to another subdirectory, or simply not checked out
+        # printed "0 identity card(s) agree" and exited 0.
+        if not list(brand.rglob("*.svg")):
+            print(f"the identity cards were NOT checked: {brand} holds no "
+                  f"SVG cards. Either they moved, or this is the wrong "
+                  f"directory.", file=sys.stderr)
+            return 1
         drift = brand_figure_drift(brand) + stale_renders(brand)
         if drift:
             print("the identity kit quotes figures this file does not know:",
@@ -544,7 +587,7 @@ def main(argv: list[str] | None = None) -> int:
             return 1
 
         print(f"{len(FIGURES) * 2} figure(s) match the data they are drawn from")
-        cards = len(list(brand.glob('*.svg')))
+        cards = len(list(brand.rglob('*.svg')))
         print(f"{cards} identity card(s) agree with this file, label by label")
     return 0
 
