@@ -48,7 +48,7 @@ steganography should find trivially. Shards are grouped one set per arm,
 so evaluating against WOW at 0.2 bits per pixel does not mean downloading MiPOD
 to get it.
 
-outguess is the one short arm, 8,119 rather than 10,000: it refuses covers it
+outguess is the one short arm, 8,119 rather than 10,000. It refuses covers it
 cannot fit a payload into, and the ones it refuses are the small and the busy
 covers. An outguess arm is therefore a different cover distribution from a full
 one, which matters when you compare across arms.
@@ -56,8 +56,8 @@ one, which matters when you compare across arms.
 Three nested tiers: **Nano** (200 covers, 1.0 GB), **Lite** (1,000, 4.8 GB) and
 **Core** (10,000, 48 GB). A tier is the first *n* covers of one fixed ordering,
 so a smaller tier is exactly a prefix of a larger one, byte for byte. Core is
-the tier published on the Internet Archive today; Nano and Lite are built and
-packed and are not up yet.
+the tier published on the Internet Archive today. Nano and Lite are, at the
+time of writing, built but not up yet.
 
 ## Pairs that differ only in the payload
 
@@ -108,11 +108,11 @@ that change what a result means are listed in full under
 
 ## About this repository
 
-This is the corpus: its documentation, its release metadata and the record of
+The corpus is made up of documentation, its release metadata and the record of
 how it was made. The images themselves are published to the Internet Archive,
 HuggingFace and Kaggle, because 48 GB does not belong in git.
 
-It is built by [stegobench](https://github.com/elementmerc/stegobench), which is
+It is built by [Stegobench](https://github.com/elementmerc/stegobench), which is
 the harness. The figures above are drawn by `tools/make_figures.py` from the
 corpus's own measured numbers; `--check` fails if they have drifted.
 
