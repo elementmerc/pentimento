@@ -36,6 +36,7 @@ from __future__ import annotations
 
 import argparse
 import pathlib
+import re
 import sys
 
 # ── The measured corpus ──────────────────────────────────────────────────
@@ -351,9 +352,41 @@ FIGURES = [
 ]
 
 
+def brand_figure_drift(brand: pathlib.Path) -> list[str]:
+    """Figures quoted in the identity kit that this file does not recognise.
+
+    The kit is drawn by hand from a design board, so nothing generated it and
+    nothing checked it. Three of its cards carried "341,997 pairs" for days
+    after the corpus grew to 344,357, and one of those cards is this project's
+    GitHub social preview: the first image anybody sees.
+
+    A thousands separator is the giveaway. SVG coordinates never carry one, so
+    any number written `12,345` inside one of these files is a FIGURE about the
+    corpus, and it has to be one of the figures above.
+
+    Comments are stripped first, because a comment recording that an old value
+    was once wrong is the opposite of drift.
+    """
+    allowed = {f"{n:,}" for n in (COVERS, PAIRS, ATTRIBUTION_REQUIRED,
+                                  STEGO_ARMS + CLEAN_ARMS)}
+    allowed |= {f"{count:,}" for _, count in LICENCES}
+    allowed |= {f"{samples:,}" for *_, samples, _ in ARMS}
+
+    problems = []
+    for svg in sorted(brand.glob("*.svg")):
+        body = re.sub(r"<!--.*?-->", "", svg.read_text(encoding="utf-8"),
+                      flags=re.DOTALL)
+        for figure in sorted(set(re.findall(r"\d{1,3}(?:,\d{3})+", body))):
+            if figure not in allowed:
+                problems.append(f"{svg}: {figure}")
+    return problems
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--out", default="docs/media")
+    ap.add_argument("--brand", default="brand/social",
+                    help="identity-kit cards, which quote figures by hand")
     ap.add_argument("--check", action="store_true",
                     help="fail if any file would change, rather than writing")
     args = ap.parse_args(argv)
@@ -380,7 +413,23 @@ def main(argv: list[str] | None = None) -> int:
                 print(f"  {c}", file=sys.stderr)
             print("run `python3 tools/make_figures.py`", file=sys.stderr)
             return 1
+
+        brand = pathlib.Path(args.brand)
+        drift = brand_figure_drift(brand) if brand.is_dir() else []
+        if drift:
+            print("the identity kit quotes figures this file does not know:",
+                  file=sys.stderr)
+            for d in drift:
+                print(f"  {d}", file=sys.stderr)
+            print("These cards are drawn by hand and nothing else checks them. "
+                  "Either the card is stale, or a figure changed here and the "
+                  "card was not redrawn.", file=sys.stderr)
+            return 1
+
         print(f"{len(FIGURES) * 2} figure(s) match the data they are drawn from")
+        if brand.is_dir():
+            cards = len(list(brand.glob('*.svg')))
+            print(f"{cards} identity card(s) quote only figures this file knows")
     return 0
 
 
