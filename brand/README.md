@@ -78,6 +78,19 @@ uppercase it.
 ### social/
 - `readme-banner-1280x320.svg` / `-dark.svg` — top of README
 - `github-social-1280x640.svg` — GitHub repo social preview
+- `kaggle-cover-1200x600.svg` / `.png` — the Kaggle dataset cover. Kaggle's
+  minimum is 564x284; this is 2:1 like the GitHub card so one ratio serves
+  both. **The PNG is the file Kaggle takes**, rendered from the SVG with
+  `rsvg-convert -w 1200 -h 600`, and the three brand faces must be installed
+  or the render silently substitutes generic fonts and looks like the brand
+  without being it
+
+**Figures on these cards are checked.** `tools/make_figures.py --check` reads
+every SVG in `social/` and fails on any thousands-separated number it does not
+recognise, because three of these cards carried "341,997 pairs" for days after
+the corpus grew to 344,357, and one of them is the GitHub social preview: the
+first image anybody sees. A comment is exempt, so recording an old value as
+history is fine.
 
 ## Clear space and minimum size
 
@@ -122,3 +135,16 @@ palette, five alternatives each with a distinct mark, and the concept recoloured
 into two other palettes. This is the third of those, the concept on Apple's
 neutrals. It was picked because it is the only one that reads on paper, which
 matters for a corpus whose readers are writing papers.
+
+## Recorded exceptions
+
+Deviations from the rules above that were made deliberately, with the reason,
+so nobody removes one later believing it to be a mistake. A deviation that is
+not written down here is a mistake.
+
+- **The documentation site's hero mark sits on a blurred glow**, against "Do not
+  add a gradient, a shadow or a glow". Decided by the operator on 2026-09-24
+  after seeing the home page with and without it. It is the mark's own two
+  colours in the mark's own order, blurred well past any edge, so it reads as
+  light rather than as a shape competing with the two squares. It applies to
+  that one hero image and nowhere else: the rule still holds everywhere.
