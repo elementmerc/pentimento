@@ -35,18 +35,21 @@ export default {
     // body, IBM Plex Mono for anything a reader compares character by character, which on this
     // site means checksums, licence codes and arm names like `juniward-0400`.
     //
-    // Link tags rather than a CSS `@import`, because an import blocks the stylesheet holding it
-    // and has to be that file's first statement. `preconnect` opens the two connections while
-    // the HTML is still parsing, and `display=swap` means the page renders in the system stack
-    // immediately rather than waiting on a font it may never get.
-    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
-    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
-    ['link', {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600'
-        + '&family=Hanken+Grotesk:wght@400;500;600;700'
-        + '&family=IBM+Plex+Mono:wght@400;500&display=swap',
-    }],
+    // SERVED FROM THIS SITE, NOT FROM GOOGLE. A remote webfont link sends every visitor's IP
+    // address and Referer to a third party on page load, before they have read anything and
+    // with no way to decline. The readership here is academic and substantially European, and
+    // that arrangement was held an unlawful transfer in LG Munchen I, 3 O 17493/20. It is also
+    // an unpinned third-party dependency on the critical path of a public site, which baseline
+    // section 5 exists to prevent.
+    //
+    // The files are OFL 1.1 and `docs/public/fonts/OFL.txt` carries the licence and all three
+    // copyright notices beside them, which is what that licence requires of anyone
+    // redistributing them.
+    // No `preload` hint: each family is split into unicode-range subsets and the browser picks
+    // the ones the page actually needs, so naming one file here would be a guess that often
+    // preloads a subset nothing uses. `display: swap` in the stylesheet already renders text
+    // immediately in the fallback stack.
+    ['link', { rel: 'stylesheet', href: `${BASE}fonts/fonts.css` }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'Pentimento' }],
     ['meta', {

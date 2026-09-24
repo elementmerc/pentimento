@@ -48,10 +48,16 @@ python3 load_pentimento.py pentimento-core-wow-0200-00000.tar
 ```
 first sample: 000000
   bytes      94,608
-  licence    {'artist': 'Charlotte Jackson', 'attribution': '"File:Downtown Hagerstown on Franklin Street.jpg", by Charlotte Jackson, CC BY 4.0, via Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Downtown_Hagerstown_on_Franklin_Street.jpg', 'credit': 'Own work', 'descriptionurl': 'https://commons.wikimedia.org/wiki/File:Downtown_Hagerstown_on_Franklin_Street.jpg', 'licence': 'CC BY 4.0', 'title': 'File:Downtown Hagerstown on Franklin Street.jpg', 'usage_terms': 'Creative Commons Attribution 4.0'}
-  cover      09710.png
+  licence    {'artist': 'Aleksandrs Timofejevs', 'attribution': '"File:Asare8.JPG", by Aleksandrs Timofejevs, CC0 (https://creativecommons.org/publicdomain/zero/1.0/), via Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Asare8.JPG, cropped, then modified to carry a hidden payload', 'credit': 'Own work', 'descriptionurl': 'https://commons.wikimedia.org/wiki/File:Asare8.JPG', 'licence': 'CC0', 'title': 'File:Asare8.JPG', 'usage_terms': 'Creative Commons Zero, Public Domain Dedication'}
+  cover      08848.png
 500 samples in pentimento-core-wow-0200-00000.tar
 ```
+
+Note what the `attribution` string carries: the licence, **the licence URI**,
+the source, and what was done to the image. CC BY requires the URI and
+requires you to say the work was modified, so reproduce that line as it
+stands. Rebuilding one from the other fields drops both and leaves you
+crediting a photograph as though it were untouched.
 
 Two things in that output surprise people. The licence prints as a whole record
 rather than a name, because a stego sample carries its cover's full credit line

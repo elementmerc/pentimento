@@ -9,9 +9,15 @@ THIS FILE IS THE GENERATOR, NOT A SKETCH
 ----------------------------------------
 Every figure is built by a function from the arrays in FIGURES below, so the
 numbers in the drawing are the measured numbers and changing one changes the
-picture. The last set of figures on this project was hand-drawn, and the
-consequence is still visible: the README banner shipped "344,348 pairs" and
-"29 arms" long after the corpus held 341,997 pairs across 39.
+picture. The last set of figures on this project was hand-drawn, and shipped a
+README banner whose pairs count and arm count were both wrong for weeks,
+because nothing derived them and nothing read them.
+
+No figures are quoted in this paragraph on purpose. It used to name the stale
+values, and a maintainer opening this file to check a number met a flat
+sentence stating a corpus size that had not been true for days, thirty lines
+above the constants that were. The measured figures are below and nowhere
+else.
 
 HOUSE STYLE
 -----------
@@ -35,6 +41,7 @@ Usage::
 from __future__ import annotations
 
 import argparse
+import hashlib
 import pathlib
 import re
 import sys
@@ -352,33 +359,135 @@ FIGURES = [
 ]
 
 
+#: What each label on an identity card must be counting. The check pairs the
+#: LABEL with the number beside it, rather than asking whether a numeral
+#: appears anywhere in this file.
+#:
+#: A bag-of-tokens allowlist was the first version and two reviewers found the
+#: same hole independently: `5,453 arms` and `8,119 pairs` both passed it,
+#: because 5,453 and 8,119 are real figures here, just not of that thing. On
+#: the Kaggle card the four values sit in one row of `<text>` elements and the
+#: four labels in another, which is precisely the layout where a transposition
+#: is invisible to a reader and to a token check alike.
+CARD_LABELS = {
+    "covers": lambda: COVERS,
+    "cover photographs": lambda: COVERS,
+    "pairs": lambda: PAIRS,
+    "matched stego pairs": lambda: PAIRS,
+    "arms": lambda: STEGO_ARMS + CLEAN_ARMS,
+    "labelled arms": lambda: STEGO_ARMS + CLEAN_ARMS,
+    "need a credit line": lambda: ATTRIBUTION_REQUIRED,
+}
+
+
+def stale_renders(brand: pathlib.Path) -> list[str]:
+    """PNGs whose source SVG has changed since they were rendered.
+
+    The PNG is the file a platform actually serves; Kaggle takes the raster,
+    not the vector. Rendering is a manual step needing three fonts installed,
+    so the failure is a figure corrected in the SVG, the check going green, and
+    the wrong number still sitting on the dataset page. That is the same shape
+    as a corrected source with a stale build, which is the defect the
+    documentation workflow exists to close.
+
+    A sidecar holding the SVG's digest is enough, and unlike re-rendering it
+    needs no fonts on a CI runner and gives the same answer every time.
+    """
+    problems = []
+    for png in sorted(brand.glob("*.png")):
+        source = png.with_suffix(".svg")
+        sidecar = png.with_suffix(".svg.sha256")
+        if not source.is_file():
+            problems.append(f"{png.name}: no {source.name} to render it from")
+            continue
+        digest = hashlib.sha256(source.read_bytes()).hexdigest()
+        if not sidecar.is_file():
+            problems.append(
+                f"{png.name}: no {sidecar.name}, so nothing records which "
+                f"version of the SVG it was rendered from")
+        elif sidecar.read_text(encoding="utf-8").split()[0] != digest:
+            problems.append(
+                f"{png.name} was rendered from an older {source.name}. "
+                f"Re-render it, then update {sidecar.name}.")
+    return problems
+
+
 def brand_figure_drift(brand: pathlib.Path) -> list[str]:
-    """Figures quoted in the identity kit that this file does not recognise.
+    """Figures quoted in the identity kit that disagree with this file.
 
     The kit is drawn by hand from a design board, so nothing generated it and
-    nothing checked it. Three of its cards carried "341,997 pairs" for days
+    nothing checked it. Three of its cards carried "341,997 pairs" for two days
     after the corpus grew to 344,357, and one of those cards is this project's
-    GitHub social preview: the first image anybody sees.
+    GitHub social preview: the first image anybody sees, and the image every
+    link unfurl caches.
 
-    A thousands separator is the giveaway. SVG coordinates never carry one, so
-    any number written `12,345` inside one of these files is a FIGURE about the
-    corpus, and it has to be one of the figures above.
+    Two things are checked, because the first version checked neither properly.
+
+    LABEL AND NUMBER TOGETHER, so a right number against the wrong noun is
+    caught. And EVERY number beside a known label, not only the ones carrying a
+    thousands separator: the first version justified itself on the separator
+    being the giveaway, and `39 arms` has none, so the arm count, which is the
+    other half of the failure this file's own header records, was invisible to
+    it.
 
     Comments are stripped first, because a comment recording that an old value
     was once wrong is the opposite of drift.
     """
-    allowed = {f"{n:,}" for n in (COVERS, PAIRS, ATTRIBUTION_REQUIRED,
-                                  STEGO_ARMS + CLEAN_ARMS)}
-    allowed |= {f"{count:,}" for _, count in LICENCES}
-    allowed |= {f"{samples:,}" for *_, samples, _ in ARMS}
-
     problems = []
+    labels = sorted(CARD_LABELS, key=len, reverse=True)   # longest wins
+    pattern = re.compile(
+        r"([\d,]+)\s*(" + "|".join(re.escape(l) for l in labels) + r")\b")
+
     for svg in sorted(brand.glob("*.svg")):
         body = re.sub(r"<!--.*?-->", "", svg.read_text(encoding="utf-8"),
                       flags=re.DOTALL)
-        for figure in sorted(set(re.findall(r"\d{1,3}(?:,\d{3})+", body))):
-            if figure not in allowed:
-                problems.append(f"{svg}: {figure}")
+
+        # PAIRING FOLLOWS THE GEOMETRY, NOT THE MARKUP ORDER.
+        #
+        # A card writes "344,357 pairs" inside one <text>, or it writes the
+        # four numbers in one row of <text> elements and the four labels in
+        # another beneath them, sharing an x. Stripping the tags and reading
+        # adjacency gets the second layout exactly wrong: the LAST number ends
+        # up next to the FIRST label. That produced a confident, false report
+        # that the Kaggle card claimed 5,453 cover photographs.
+        cells = [(float(x), re.sub(r"\s+", " ", inner).strip())
+                 for x, inner in re.findall(
+                     r'<text[^>]*\bx="([-\d.]+)"[^>]*>(.*?)</text>',
+                     body, flags=re.DOTALL)]
+
+        def number_at(column: float) -> str | None:
+            """A bare figure in another <text> sharing this x."""
+            for x, content in cells:
+                if abs(x - column) <= 2 and re.fullmatch(r"[\d,]+", content):
+                    return content
+            return None
+
+        for x, content in cells:
+            inline = pattern.fullmatch(content) or pattern.search(content)
+            if inline:
+                number, label = inline.group(1), inline.group(2)
+            elif content in CARD_LABELS:
+                number, label = number_at(x), content
+                if number is None:
+                    problems.append(
+                        f"{svg.name}: {content!r} labels no figure this file "
+                        f"can find, so nothing checked it")
+                    continue
+            else:
+                continue
+            want = CARD_LABELS[label]()
+            if number.replace(",", "") != str(want):
+                problems.append(
+                    f"{svg.name}: says {number} {label}, the corpus has "
+                    f"{want:,}")
+
+        # A separated number beside no label at all is still a claim about the
+        # corpus; SVG coordinates never carry a thousands separator.
+        known = {f"{v():,}" for v in CARD_LABELS.values()}
+        for figure in set(re.findall(r"\d{1,3}(?:,\d{3})+",
+                                     re.sub(r"<[^>]+>", " ", body))):
+            if figure not in known:
+                problems.append(f"{svg.name}: {figure} matches no known figure")
     return problems
 
 
@@ -414,8 +523,16 @@ def main(argv: list[str] | None = None) -> int:
             print("run `python3 tools/make_figures.py`", file=sys.stderr)
             return 1
 
+        # A CHECK THAT SILENTLY DID NOT RUN IS NOT A CHECK THAT PASSED. This
+        # printed "6 figure(s) match" and exited 0 from any directory that was
+        # not the repository root, having read no cards at all.
         brand = pathlib.Path(args.brand)
-        drift = brand_figure_drift(brand) if brand.is_dir() else []
+        if not brand.is_dir():
+            print(f"the identity cards were NOT checked: {brand} does not "
+                  f"exist. Run this from the repository root, or pass "
+                  f"--brand.", file=sys.stderr)
+            return 1
+        drift = brand_figure_drift(brand) + stale_renders(brand)
         if drift:
             print("the identity kit quotes figures this file does not know:",
                   file=sys.stderr)
@@ -427,9 +544,8 @@ def main(argv: list[str] | None = None) -> int:
             return 1
 
         print(f"{len(FIGURES) * 2} figure(s) match the data they are drawn from")
-        if brand.is_dir():
-            cards = len(list(brand.glob('*.svg')))
-            print(f"{cards} identity card(s) quote only figures this file knows")
+        cards = len(list(brand.glob('*.svg')))
+        print(f"{cards} identity card(s) agree with this file, label by label")
     return 0
 
 

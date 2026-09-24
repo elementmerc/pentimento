@@ -5,9 +5,11 @@
     thumbnail stays sharp where Kaggle scales it down.
 
     Figures are the corpus's own and are checked by tools/make_figures.py in
-    its checking mode. The GitHub card in this folder carried "341,997 pairs"
-    for weeks after the corpus grew to 344,357, which is the reason that check
-    now reads this folder.
+    its checking mode, label by label. The GitHub card in this folder carried a
+    stale pairs count from 2026-09-22 to 2026-09-24, two days, which is the
+    reason that check now reads this folder. "Weeks" appeared here first and
+    was wrong; on a project arguing that every claim is traceable, an
+    exaggerated one in a shipped artefact undercuts the argument.
 
     The offset squares bleeding off the right edge are the mark's own idea at
     poster scale: an earlier layer showing through a later one. They sit at 7%
@@ -35,21 +37,26 @@
   <text x="88" y="392" font-family="Hanken Grotesk, system-ui, sans-serif"
         font-size="27" fill="#1D1D1F">A steganalysis corpus with its licences attached.</text>
   <text x="88" y="430" font-family="Hanken Grotesk, system-ui, sans-serif"
-        font-size="19" fill="#6E6E73">Every image carries its own licence. Every file carries its own checksum.</text>
+        font-size="19" fill="#6E6E73">The cover tier. The 35 stego arms are on the Internet Archive and HuggingFace.</text>
 
   <!-- A rule, not a box: the kit allows Line for rules and forbids shadows. -->
   <rect x="88" y="474" width="1024" height="1" fill="#D2D2D7"/>
 
+  <!--
+    THE FIGURES DESCRIBE THE KAGGLE COPY, WHICH IS COVERS ONLY.
+    An earlier draft carried the pairs and arm counts of the whole corpus on
+    the cover of a dataset containing neither, so a reader downloading 3.3 GB
+    expecting 344,357 pairs found none. Those two numbers moved into the
+    subtitle above as a pointer to where the arms actually are.
+  -->
   <g font-family="IBM Plex Mono, monospace" fill="#1D1D1F">
     <text x="88" y="522" font-size="30">10,000</text>
-    <text x="330" y="522" font-size="30">344,357</text>
-    <text x="620" y="522" font-size="30">39</text>
-    <text x="800" y="522" font-size="30">5,453</text>
+    <text x="420" y="522" font-size="30">5,453</text>
+    <text x="760" y="522" font-size="30">512</text>
   </g>
   <g font-family="Hanken Grotesk, system-ui, sans-serif" font-size="15" fill="#86868B">
     <text x="88" y="548">cover photographs</text>
-    <text x="330" y="548">matched stego pairs</text>
-    <text x="620" y="548">labelled arms</text>
-    <text x="800" y="548">need a credit line</text>
+    <text x="420" y="548">need a credit line</text>
+    <text x="760" y="548">pixels square, PNG</text>
   </g>
 </svg>

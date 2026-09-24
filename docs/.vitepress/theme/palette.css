@@ -14,9 +14,19 @@
  *   Muted dark #6E6E73   body text that is not a heading
  *   Line       #D2D2D7   rules, borders, dividers
  *
- * The kit measures its own contrast and states two rules this file obeys:
- * Muted is for captions at 18px and above ONLY (3.6:1), and Blue is NEVER body text on Ink
- * (3.6:1), so dark mode uses Paper for text and lifts the blue for links.
+ * The kit measures its own contrast and states two rules this file obeys: Muted is for
+ * captions only, and Blue is NEVER body text on Ink, so dark mode uses Paper for text and
+ * lifts the blue for links.
+ *
+ * ONE CORRECTION TO THE KIT, MEASURED 2026-09-24. Its contrast table names Ground as the
+ * background of every row, and the numbers are Paper's. Blue on Ground is 4.31:1, not the
+ * 4.6:1 the table claims, and 4.31 is below the 4.5:1 AA floor for normal text. That matters
+ * here and not only on paper, because this file sets Ground as the page background, so the
+ * table was licensing the exact combination the site would use for every link.
+ *
+ * So light-mode links use `--pm-blue-link`, the same hue darkened until it clears the floor
+ * against the background it is actually on. The brand Blue is unchanged and still paints the
+ * mark, the buttons and every large element, where it is not text at body size.
  */
 
 :root {
@@ -28,13 +38,19 @@
   --pm-muted-dark: #6E6E73;
   --pm-line:       #D2D2D7;
 
-  /* Derived, and only by darkening Blue for hover and active states. The kit does not name
-     these, so they stay a pure function of Blue rather than new colours. */
+  /* Derived, and only by darkening Blue. The kit does not name these, so they stay a pure
+     function of Blue rather than new colours.
+     `--pm-blue-link` is the one that carries an obligation rather than a preference: 5.02:1
+     on Ground, against the 4.31:1 the brand Blue actually manages there. */
+  --pm-blue-link:   #0067CF;
   --pm-blue-dark:   #0062C4;
   --pm-blue-darker: #0052A5;
 
   /* VitePress brand hooks. */
-  --vp-c-brand-1: var(--pm-blue);
+  /* brand-1 is what VitePress paints link text with, so it takes the accessible value.
+     The buttons below keep the brand Blue: white on Blue is 4.70:1, which clears 4.5:1
+     outright, so they need no adjustment at any size. */
+  --vp-c-brand-1: var(--pm-blue-link);
   --vp-c-brand-2: var(--pm-blue-dark);
   --vp-c-brand-3: var(--pm-blue-darker);
   --vp-c-brand-soft: rgba(0, 113, 227, 0.12);
@@ -55,8 +71,8 @@
   --vp-button-brand-active-bg: var(--pm-blue-darker);
   --vp-button-brand-border: transparent;
 
-  /* The product name carries the brand blue so it reads as the name rather than as the first
-     line of the sentence under it. */
+  /* The product name keeps the brand Blue. It is 52px and above, which is large text, held
+     to 3:1 rather than 4.5:1, and 4.31:1 clears that comfortably. */
   --vp-home-hero-name-color: var(--pm-blue);
 
   /* THE GLOW IS A RECORDED EXCEPTION TO THE KIT, NOT AN OVERSIGHT.
@@ -114,9 +130,10 @@
  * Every family degrades to a system stack, so the site is readable before a webfont arrives and
  * readable if one never does.
  *
- * The families are FETCHED by link tags in `config.mjs`, not by an `@import` here. A CSS import
- * blocks the stylesheet that contains it while it resolves, and it has to be the first statement
- * in the file, which would put a font request above the palette this file exists for.
+ * The families are SELF-HOSTED from `docs/public/fonts/` and pulled in by a link tag in
+ * `config.mjs`, not by an `@import` here: a CSS import blocks the stylesheet that contains it
+ * while it resolves, and has to be that file's first statement, which would put a font request
+ * above the palette this file exists for.
  */
 
 :root {
@@ -191,8 +208,10 @@
  * read as a bullet point beside a 64px display line. The sibling project's mark declares 512px
  * and fills its box on intrinsic size alone, which is why it needs no rule like this.
  *
- * Sizing here rather than by editing the file keeps `docs/public/` byte-identical to `brand/`,
- * so the copy in the site cannot drift from the kit.
+ * Sizing here rather than by editing the file keeps `mark.svg` byte-identical to the kit's own,
+ * so the copy in the site cannot drift from it. (`favicon.svg` is the one file in
+ * `docs/public/` that DOES differ, deliberately, and it is recorded in the kit's Recorded
+ * exceptions.)
  */
 .VPHero .image-container,
 .VPHero .image-bg {

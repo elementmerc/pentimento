@@ -40,6 +40,36 @@ other way to learn what happened to it. Stego images also inherit their
 cover's licence under `cover_licence`, so a reader who downloads one arm and
 never opens the cover tier still has everything the licence asks of them.
 
+## Crediting 5,453 photographers at once
+
+Reading 5,453 records to build a credit list is not a thing anybody does. It
+is the reason people write "images from Wikimedia Commons" and credit nobody,
+so the corpus ships the list already made:
+
+| File | What it is |
+|---|---|
+| `ATTRIBUTION.md` | Every credit line, grouped by licence. Paste the section you need |
+| `ATTRIBUTION.csv` | The same lines with `file`, `licence`, `licence_url`, `artist`, `title`, `source` and `attribution` as columns, to join against |
+
+Both ship beside the covers, on every host. On Kaggle they sit at the root of
+the dataset alongside the unpacked shard folders, unaffected by the unpacking
+described in [Get it](get-it).
+
+**If you used one arm rather than the whole corpus**, you owe credit only for
+the covers you actually touched. Every sample record names its cover under
+`source_png`; collect those and join on the `file` column:
+
+```python
+import csv, json
+
+used = {r["source_png"] for _, _, r in samples("pentimento-core-wow-0200-00000.tar")}
+
+with open("ATTRIBUTION.csv", newline="") as fh:
+    for row in csv.DictReader(fh):
+        if row["file"] in used:
+            print(row["attribution"])
+```
+
 ## Citing it
 
 `CITATION.cff` ships beside the shards. It's [Citation File

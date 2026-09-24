@@ -112,5 +112,14 @@ It is built by [stegobench](https://github.com/elementmerc/stegobench), which is
 the harness. The figures above are drawn by `tools/make_figures.py` from the
 corpus's own measured numbers; `--check` fails if they have drifted.
 
-Licence: the collection is CC BY 4.0, and each file carries its own terms in its
-own record. See [Licence and attribution](https://elementmerc.github.io/pentimento/guide/licence).
+## Licence
+
+**The corpus** is CC BY 4.0, and each file carries its own terms in its own
+record. See [Licence and attribution](https://elementmerc.github.io/pentimento/guide/licence).
+
+**This repository** holds four different kinds of thing and they are not all
+under one licence: code is AGPL-3.0-or-later, the documentation prose is
+CC BY 4.0, the identity in `brand/` is reserved with a narrow permission to
+use the mark unmodified when referring to this project, and the webfonts under
+`docs/public/fonts/` are OFL 1.1. The reasoning, and the exact permission for
+the mark, are in [LICENCES-IN-THIS-REPOSITORY.md](LICENCES-IN-THIS-REPOSITORY.md).

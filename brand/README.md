@@ -136,11 +136,31 @@ into two other palettes. This is the third of those, the concept on Apple's
 neutrals. It was picked because it is the only one that reads on paper, which
 matters for a corpus whose readers are writing papers.
 
+## Licence
+
+**Reserved, not open.** Everything in this directory is all rights reserved,
+with one permission: you may reproduce the mark, wordmark and lockups
+UNMODIFIED to refer to this project, and you may scale them. You may not
+alter, recolour or recombine them, use them for anything that is not this
+project, or imply endorsement.
+
+This is deliberately narrower than the AGPL that covers the code. A mark that
+can be modified and reapplied is a mark that can brand a degraded fork of a
+corpus whose whole argument is traceable provenance. See
+`../LICENCES-IN-THIS-REPOSITORY.md`.
+
 ## Recorded exceptions
 
 Deviations from the rules above that were made deliberately, with the reason,
 so nobody removes one later believing it to be a mistake. A deviation that is
 not written down here is a mistake.
+
+- **`docs/public/favicon.svg` is not byte-identical to `favicon/favicon.svg`.**
+  The site's copy carries a `prefers-color-scheme` block so the front square is
+  Ink on a light browser chrome and Paper on a dark one. The kit ships one
+  fixed mark per ground, and a favicon cannot know which ground it will be
+  drawn on, so a fixed one disappears in one of the two. The marks and lockups
+  in `docs/public/` ARE byte-identical; this is the only file that differs.
 
 - **The documentation site's hero mark sits on a blurred glow**, against "Do not
   add a gradient, a shadow or a glow". Decided by the operator on 2026-09-24

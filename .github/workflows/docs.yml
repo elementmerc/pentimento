@@ -14,24 +14,39 @@
 # Pages serves one site per repository, so the two branches cannot both own the root. This
 # publishes `main`, because the site documents a corpus somebody can actually download, and
 # pages describing unreleased work at a public URL is what baseline section 16 exists to
-# prevent. Documentation on `dev` is still built by the `build` job on every push, so a dead
-# internal link fails there; it just is not published until it is released.
+# prevent.
 #
-# `workflow_dispatch` is here so a documentation correction can be published without waiting for
-# a release, which is exactly the case that went unserved above. GitHub only runs manual
-# workflows from the default branch, so it publishes whatever `main` holds.
+# THE DEPLOY IS GATED ON THE REF, NOT ON A BELIEF ABOUT GITHUB'S UI. An earlier draft of this
+# header said "GitHub only runs manual workflows from the default branch, so it publishes
+# whatever `main` holds". Both halves were wrong, and the mistake was load-bearing: GitHub
+# lists a `workflow_dispatch` workflow from the default branch but then offers a BRANCH
+# SELECTOR, and this repository's default branch is `dev`. So the one reachable path published
+# unreleased documentation to the public URL, and the comment would have talked a reader out of
+# checking. `if: github.ref == 'refs/heads/main'` on the deploy job is the guard; a sentence is
+# not.
+#
+# `dev` is built on every push so a dead internal link fails on the branch where documentation
+# work actually lands. It is built and never deployed.
+#
+# `workflow_dispatch` is here so a correction can be published without waiting for a release.
+# Choose `main` in the branch selector; anything else builds and stops at the guard.
 name: Documentation site
 
+# The path lists include `brand/**` and `tools/make_figures.py` because the figures check below
+# reads BOTH the generated figures and the hand-drawn identity cards. With `docs/**` alone, the
+# commit that corrected "341,997 pairs" on three cards and added that very check would have
+# triggered no run at all: it touched only those two trees.
 on:
   push:
-    branches: [main]
-    paths:
+    branches: [main, dev]
+    paths: &watched
       - 'docs/**'
+      - 'brand/**'
+      - 'tools/make_figures.py'
+      - 'README.md'
       - '.github/workflows/docs.yml'
   pull_request:
-    paths:
-      - 'docs/**'
-      - '.github/workflows/docs.yml'
+    paths: *watched
   workflow_dispatch:
 
 permissions:
@@ -65,7 +80,10 @@ jobs:
 
       - name: Install, from the lockfile only
         working-directory: docs
-        run: npm ci
+        # `--ignore-scripts`: once this repository is public, a fork's pull request supplies its
+        # own package.json and lockfile, and install lifecycle scripts would run here. VitePress
+        # builds without them.
+        run: npm ci --ignore-scripts
 
       - name: Build, which fails on a dead link
         # `ignoreDeadLinks` is deliberately unset in the config, so a link from one page of the
@@ -73,34 +91,65 @@ jobs:
         working-directory: docs
         run: npm run build
 
-      - name: The figures in the docs still match the corpus they describe
-        # This repository's PART C rule: numbers in published prose are DERIVED and verified,
-        # never hand-edited, because a README once shipped a cover count the corpus did not
-        # have and nothing could catch it. The site is published prose.
+      - name: The generated figures and the identity cards match the data file
+        # NAMED FOR WHAT IT READS. It was called "the figures in the docs still match the
+        # corpus", which claimed more than it does: it reads `docs/media/*.svg` and
+        # `brand/social/*.svg`, and opens no Markdown at all. The site's prose figures are
+        # hand-typed, and one of them ("344,348 pairs" in config.mjs) was found by a person
+        # reading it two commits before this check existed. A step whose name overstates its
+        # reach is worse than no step, because a release reviewer trusts the name.
         run: python3 tools/make_figures.py --check
 
-      - name: The brand assets the site references are actually there
-        # The nav logo and the hero both point into `docs/public/`. A missing file renders as a
-        # broken image on the front page, which the build does not fail on.
+      - name: The brand assets and fonts the site references are actually there
+        # The nav logo and the hero point into `docs/public/`, and a missing one renders as a
+        # broken image on the front page without failing the build. The fonts are here for a
+        # second reason: they are redistributed under OFL 1.1, which requires the licence to
+        # travel with them, so shipping the faces without OFL.txt would be a licence breach
+        # rather than a cosmetic fault.
         run: |
           set -eu
-          for f in mark.svg mark-reversed.svg favicon.svg; do
+          for f in mark.svg mark-reversed.svg favicon.svg fonts/fonts.css fonts/OFL.txt; do
             if [ ! -f "docs/public/$f" ]; then
               echo "::error::docs/public/$f is referenced by the site and does not exist"
               exit 1
             fi
           done
-          echo "  all referenced brand assets present"
+          if ! ls docs/public/fonts/*.woff2 >/dev/null 2>&1; then
+            echo "::error::no woff2 files in docs/public/fonts, so the site would fall back"
+            exit 1
+          fi
+          echo "  all referenced brand assets, fonts and the OFL notice are present"
+
+      - name: The pages the deploy will smoke-test exist in the build output
+        # THIS is the gate. The identically-named step in the deploy job runs after the live
+        # site has already been swapped, so it can only report a broken publish, never prevent
+        # one. Checking the same paths here, against `dist`, is what actually stops one.
+        run: |
+          set -eu
+          rc=0
+          for path in index.html guide/get-it.html guide/using-it.html \
+                      guide/licence.html mark.svg; do
+            if [ ! -f "docs/.vitepress/dist/$path" ]; then
+              echo "::error::$path is missing from the build, so the deploy check would 404"
+              rc=1
+            fi
+          done
+          exit "$rc"
 
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5.0.0
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         with:
           path: docs/.vitepress/dist
 
   deploy:
     name: Publish to Pages
     needs: build
-    if: github.event_name != 'pull_request'
+    # `main` ONLY. `event_name != 'pull_request'` was not enough: a push to `dev` and a manual
+    # dispatch against `dev` both satisfy it, and both would have published unreleased pages.
+    #
+    # A GitHub Pages site is served publicly whatever the repository's visibility, so this guard
+    # is the whole of what stands between `dev` and a public URL.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     # Scoped to this job alone. `pages: write` and `id-token: write` are what the deployment
     # needs; the build job that runs `npm ci` over the dependency tree gets neither.
@@ -117,6 +166,11 @@ jobs:
       # A check that cannot see the thing it is about is the defect this whole file exists to
       # correct, so the last step fetches the pages a reader would actually open, from the site
       # that was just published, rather than from a directory on the runner.
+      #
+      # IT IS A DETECTOR, NOT A GATE. It runs after the deploy has already swapped the live
+      # site, so a failure here means the site is broken AND red, with no rollback. The build
+      # job checks the same paths against `dist` beforehand, which is the part that can
+      # actually prevent a bad publish.
       - name: The pages a reader lands on resolve on the published site
         run: |
           set -uo pipefail
