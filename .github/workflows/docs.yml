@@ -52,12 +52,6 @@ on:
 permissions:
   contents: read
 
-# One deployment at a time, and never cancel one in flight: a cancelled deploy can leave the
-# published site mid-swap, and the queued run that follows would publish the same content anyway.
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
 jobs:
   build:
     name: Build the site
@@ -70,14 +64,17 @@ jobs:
           # to have been updated on the day it was built.
           fetch-depth: 0
 
-      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903  # v5.0.0
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903  # v6.0.0
         with:
           node-version: '22'
           cache: npm
           cache-dependency-path: docs/package-lock.json
 
-      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d  # v6.0.0
-
+      # `actions/configure-pages` used to run here and is deliberately gone. It calls the Pages
+      # REST API, the build job holds `contents: read` and nothing else, and the standard result
+      # is "Resource not accessible by integration" on the first run: red on the release, and red
+      # on every fork pull request, where the token is read-only whatever we grant. Its outputs
+      # bought nothing either, because the site's base path is set in `config.mjs`.
       - name: Install, from the lockfile only
         working-directory: docs
         # `--ignore-scripts`: once this repository is public, a fork's pull request supplies its
@@ -93,8 +90,8 @@ jobs:
 
       - name: The generated figures and the identity cards match the data file
         # NAMED FOR WHAT IT READS. It was called "the figures in the docs still match the
-        # corpus", which claimed more than it does: it reads `docs/media/*.svg` and
-        # `brand/social/*.svg`, and opens no Markdown at all. The site's prose figures are
+        # corpus", which claimed more than it does: it reads `docs/media/*.svg` and every SVG
+        # under `brand/`, and opens no Markdown at all. The site's prose figures are
         # hand-typed, and one of them ("344,348 pairs" in config.mjs) was found by a person
         # reading it two commits before this check existed. A step whose name overstates its
         # reach is worse than no step, because a release reviewer trusts the name.
@@ -151,6 +148,15 @@ jobs:
     # is the whole of what stands between `dev` and a public URL.
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    # One deployment at a time, and never cancel one in flight: a cancelled deploy can leave the
+    # published site mid-swap, and the queued run behind it would publish the same content anyway.
+    #
+    # ON THE JOB, NOT THE WORKFLOW. At workflow level this group also held every pull request and
+    # every `dev` build, none of which can deploy, so a queue of branch builds sat in front of the
+    # one run that mattered with cancellation turned off.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     # Scoped to this job alone. `pages: write` and `id-token: write` are what the deployment
     # needs; the build job that runs `npm ci` over the dependency tree gets neither.
     permissions:
