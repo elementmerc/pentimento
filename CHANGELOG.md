@@ -55,4 +55,3 @@ First public release of the Pentimento corpus.
 - The corpus is CC BY 4.0. The tooling in this repository is AGPL-3.0-or-later,
   the documentation prose is CC BY 4.0, and the identity in `brand/` is reserved
   with a narrow permission for unmodified use.
-</content>
