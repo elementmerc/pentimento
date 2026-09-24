@@ -51,7 +51,7 @@ python3 load_pentimento.py pentimento-core-wow-0200-00000.tar
 
 ```
 first sample: 000000
-  bytes      94,608
+  bytes      63,550
   licence    {'artist': 'Aleksandrs Timofejevs', 'attribution': '"File:Asare8.JPG", by Aleksandrs Timofejevs, CC0 (https://creativecommons.org/publicdomain/zero/1.0/), via Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Asare8.JPG, cropped, then modified to carry a hidden payload', 'credit': 'Own work', 'descriptionurl': 'https://commons.wikimedia.org/wiki/File:Asare8.JPG', 'licence': 'CC0', 'title': 'File:Asare8.JPG', 'usage_terms': 'Creative Commons Zero, Public Domain Dedication'}
   cover      08848.png
 500 samples in pentimento-core-wow-0200-00000.tar
@@ -71,6 +71,22 @@ filenames were fixed when the covers were fetched. They're two separate
 numberings and they only agree by accident. The `cover` line is the one to
 read.
 
+## If you just want to look at one
+
+```bash
+tar -xf pentimento-core-wow-0200-00000.tar 000000.png
+tar -xf pentimento-core-clean-grey-00000.tar 000000.png --transform 's/^/clean-/'
+```
+
+You now have the same photograph twice: one carrying a hidden payload, one not.
+They are 512x512 greyscale PNGs, and **they will look identical to you**, at
+any zoom. That is the whole point of the field: if you could see the difference
+there would be nothing to detect. The two files differ in about 3% of pixels,
+each by one in the last bit of its brightness value, which no eye resolves.
+
+Finding that difference without being told which is which is the problem this
+corpus is for.
+
 Then see [Loading and splitting](using-it) before you train on it, because a
 random split will quietly flatter your results.
 
@@ -87,6 +103,15 @@ On HuggingFace:
 ```bash
 pip install huggingface_hub
 hf download the-malware-files/pentimento-core --repo-type dataset --local-dir pentimento
+```
+
+That pulls all 48 GB. To take one arm and the clean half it is measured
+against, the same way the Archive example does:
+
+```bash
+hf download the-malware-files/pentimento-core --repo-type dataset \
+  --local-dir pentimento \
+  --include 'pentimento-core-wow-0200-*.tar' 'pentimento-core-clean-grey-*.tar'
 ```
 
 ## Smaller tiers

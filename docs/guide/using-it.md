@@ -28,11 +28,22 @@ folder first with `tar cf pentimento-core-00000.tar -C pentimento-core-00000 .`
 :::
 
 
+`.decode("pil")` needs Pillow, and installing `webdataset` does not bring it.
+Without it the traceback ends in `webdataset.autodecode.DecodingError` with no
+message, and the real cause (`ModuleNotFoundError: No module named 'PIL'`) is
+thirty lines further up:
+
+```bash
+pip install webdataset pillow
+```
+
 ```python
 import webdataset as wds
 
+# One shard, which is what the Get it page has you download. The whole arm is
+# `{00000..00019}`, and that pattern matches nothing until all twenty are here.
 dataset = (
-    wds.WebDataset("pentimento-core-wow-0200-{00000..00019}.tar")
+    wds.WebDataset("pentimento-core-wow-0200-00000.tar")
     .decode("pil")
     .to_tuple("png;jpg;jpeg", "json")
 )
@@ -109,10 +120,10 @@ against those.
 
 Two ways in, and they agree:
 
-- **By position.** The arms are key aligned and shard aligned. Key `NNNNNN` in
-  shard `K` of a stego arm is the same photograph as key `NNNNNN` in shard `K`
-  of its clean arm. This holds for the outguess arms too, which are short of
-  10,000 samples.
+- **By position.** A stego arm and **its own clean arm** are key aligned and
+  shard aligned. Key `NNNNNN` in shard `K` of a stego arm is the same
+  photograph as key `NNNNNN` in shard `K` of its clean arm. This holds for the
+  outguess arms too, which are short of 10,000 samples.
 - **By digest.** A stego record's `clean_sha256` is the `sha256` of its clean
   record. This is the join to use if you're streaming the two arms separately,
   or if you want the pairing checked rather than assumed.
@@ -120,6 +131,18 @@ Two ways in, and they agree:
 [What is in it](/guide/whats-in-it#the-clean-arms) says which clean arm goes
 with which stego arm. Use that one rather than the cover tier, or the pair will
 differ in the encoder as well as in the payload.
+
+::: danger Keys line up within a pair, never between two stego arms
+Shard `K` of one stego arm and shard `K` of a different stego arm are not the
+same photographs. Shard 0 of `wow-0200` and shard 0 of `outguess-0200` hold 500
+covers each and share only 395 of them, because a short arm skips the covers
+its tool refused and everything after the gap shifts up.
+
+So comparing two arms by zipping them on key gives a wrong answer that looks
+right: the counts match, every digest matches its own record, and
+`sha256sum -c` passes on both. **Join across arms on `source_png`**, which
+names the photograph, not on the key, which names a position.
+:::
 
 ## Verify before you publish
 
